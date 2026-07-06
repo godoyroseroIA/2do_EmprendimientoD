@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmprendeTech: Academia Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card-hover { transition: transform 0.2s, box-shadow 0.2s; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-slate-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Navbar -->
+    <nav class="bg-indigo-600 text-white p-4 shadow-md flex justify-between items-center z-10">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-rocket text-2xl"></i>
+            <h1 class="text-xl font-bold tracking-tight">EmprendeTech</h1>
+        </div>
+        <div id="user-profile" class="hidden flex items-center gap-4">
+            <span id="user-name-display" class="font-medium text-sm md:text-base hidden md:block"></span>
+            <button onclick="logout()" class="bg-indigo-500 hover:bg-indigo-400 px-4 py-2 rounded-lg text-sm font-semibold transition">
+                <i class="fas fa-sign-out-alt mr-2"></i>Salir
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto hide-scroll relative">
+        
+        <!-- 1. LOGIN VIEW -->
+        <div id="login-view" class="min-h-full flex items-center justify-center p-4 fade-in">
+            <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">Acceso Estudiantes</h2>
+                    <p class="text-slate-500 text-sm mt-2">Ingresa tus credenciales para comenzar tu aprendizaje en Emprendimiento Digital.</p>
+                </div>
+
+                <div id="login-error" class="hidden bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4 border border-red-200 text-center">
+                    Credenciales incorrectas. Verifica tu correo y cédula.
+                </div>
+
+                <form id="login-form" onsubmit="handleLogin(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Correo Institucional</label>
+                        <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="ejemplo@sagradocorazon.edu.ec">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Contraseña (Nº de Cédula)</label>
+                        <input type="password" id="password" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Tu número de cédula">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition shadow-lg shadow-indigo-200">
+                        Ingresar a la plataforma
+                    </button>
+                </form>
+
+                <div class="mt-6 border-t border-slate-200 pt-6">
+                    <p class="text-xs text-slate-500 font-semibold mb-2 uppercase">Usuarios de prueba disponibles (CSV Data):</p>
+                    <div class="text-xs text-slate-600 bg-slate-50 p-3 rounded border border-slate-200 h-32 overflow-y-auto">
+                        <b>Email:</b> alavaortiz8141@sagradocorazon.edu.ec <br><b>Cédula:</b> 0850812348 <hr class="my-1">
+                        <b>Email:</b> almeidamoreira8783@sagradocorazon.edu.ec <br><b>Cédula:</b> 1350673537 <hr class="my-1">
+                        <b>Email:</b> test@test.com <br><b>Cédula:</b> 12345 (Usuario Genérico)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. DASHBOARD VIEW -->
+        <div id="dashboard-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-7xl mx-auto">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-slate-800">Bienvenido/a, <span id="welcome-name" class="text-indigo-600"></span></h2>
+                <p class="text-slate-600 mt-2 text-lg">Selecciona un módulo para continuar con tu formación en Emprendimiento Digital.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Modulo 1 -->
+                <div onclick="navigate('learn')" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 cursor-pointer card-hover flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">1. Aprender Teoría</h3>
+                    <p class="text-slate-500 flex-1 mb-6">Explora los modelos de negocio B2B, B2C, C2C, componentes de e-commerce y conceptos clave del mundo digital.</p>
+                    <span class="text-blue-600 font-semibold text-sm flex items-center">Comenzar lección <i class="fas fa-arrow-right ml-2"></i></span>
+                </div>
+                
+                <!-- Modulo 2 -->
+                <div onclick="navigate('simulation')" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 cursor-pointer card-hover flex flex-col h-full group">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">2. Simulador Práctico</h3>
+                    <p class="text-slate-500 flex-1 mb-6">Toma el rol de consultor. Aplica tus conocimientos resolviendo un caso real de una startup tecnológica.</p>
+                    <span class="text-emerald-600 font-semibold text-sm flex items-center">Iniciar simulación <i class="fas fa-arrow-right ml-2"></i></span>
+                </div>
+
+                <!-- Modulo 3 -->
+                <div onclick="navigate('test')" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 cursor-pointer card-hover flex flex-col h-full group relative overflow-hidden">
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-spell-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">3. Test de Nivel</h3>
+                    <p class="text-slate-500 flex-1 mb-6">Demuestra lo que sabes. 20 preguntas de nivel medio-alto. Calificación automática sobre 10 puntos.</p>
+                    <span class="text-purple-600 font-semibold text-sm flex items-center">Realizar evaluación <i class="fas fa-arrow-right ml-2"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. LEARN VIEW -->
+        <div id="learn-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-5xl mx-auto">
+            <button onclick="navigate('dashboard')" class="text-indigo-600 font-medium mb-6 hover:underline flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al panel principal
+            </button>
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Fundamentos del Emprendimiento Digital</h2>
+            <p class="text-slate-500 mb-8">Basado en la revolución digital actual y el material de estudio.</p>
+
+            <div class="space-y-6">
+                <!-- Section 1 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-slate-800 flex items-center gap-3 mb-4">
+                        <i class="fas fa-globe text-indigo-500"></i> ¿Qué es el negocio digital?
+                    </h3>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        Es el modelo que se basa en la utilización de tecnología digital y plataformas en línea para llevar a cabo transacciones, ofrecer productos o servicios y generar ingresos. Empodera a los emprendedores al permitir interactuar con clientes, alcanzar un público más amplio y agilizar operaciones comerciales, logrando <strong>menores costos operativos</strong> y una <strong>mayor velocidad de lanzamiento</strong> al mercado.
+                    </p>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-slate-800 flex items-center gap-3 mb-6">
+                        <i class="fas fa-project-diagram text-indigo-500"></i> Modelos de E-Commerce (Relaciones Comerciales)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">B2C (Business to Consumer)</h4>
+                            <p class="text-sm text-slate-600">Empresas venden sus productos directamente a consumidores finales. (Ej. Amazon, Netflix).</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">B2B (Business to Business)</h4>
+                            <p class="text-sm text-slate-600">Empresas hacen transacciones comerciales con otras empresas. (Ej. Proveedores de software corporativo).</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">C2C (Consumer to Consumer)</h4>
+                            <p class="text-sm text-slate-600">Los consumidores interactúan entre sí para comprar o vender productos. (Ej. MercadoLibre, eBay).</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">C2B (Consumer to Business)</h4>
+                            <p class="text-sm text-slate-600">Consumidores individuales ofrecen productos o servicios a empresas. (Ej. Influencers, fotógrafos freelance).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-slate-800 flex items-center gap-3 mb-6">
+                        <i class="fas fa-store text-indigo-500"></i> Componentes de una Tienda en Línea
+                    </h3>
+                    <ul class="space-y-3 text-slate-600 list-none">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i> <span><strong>Catálogo de productos:</strong> Lista visual e informativa de productos en la tienda.</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i> <span><strong>Carrito de compras:</strong> Sistema para agregar y gestionar las compras antes del pago.</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i> <span><strong>Proceso de pago:</strong> Medios e información para realizar la transacción (Pasarelas de pago).</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i> <span><strong>Seguridad:</strong> Protocolos para la protección de datos y confianza del cliente (Certificados SSL).</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i> <span><strong>Logística y envío:</strong> Procesos para garantizar la entrega física del producto al comprador.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Section 4 -->
+                <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-indigo-900 flex items-center gap-3 mb-4">
+                        <i class="fas fa-lightbulb text-indigo-600"></i> Conceptos Clave Actuales (Internet & Mercado Real)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm text-indigo-800">
+                        <p><strong>Freemium:</strong> Modelo que ofrece servicios básicos gratis y cobra por funciones premium avanzadas.</p>
+                        <p><strong>Marketplace:</strong> Plataforma digital que conecta a múltiples vendedores con compradores (como un centro comercial virtual).</p>
+                        <p><strong>MVP (Producto Mínimo Viable):</strong> Lanzar un producto con las funciones mínimas para probar el mercado antes de invertir más.</p>
+                        <p><strong>Escalabilidad:</strong> Capacidad del negocio de multiplicar ingresos sin que los costos aumenten en la misma proporción.</p>
+                        <p><strong>CAC (Costo de Adquisición de Cliente):</strong> Cuánto dinero invierte la empresa en marketing para conseguir un nuevo cliente.</p>
+                        <p><strong>Dropshipping:</strong> Modelo donde la tienda no tiene inventario; cuando vende, compra el artículo a un tercero que lo envía directo al cliente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. SIMULATION VIEW -->
+        <div id="simulation-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-4xl mx-auto flex flex-col">
+            <button onclick="navigate('dashboard')" class="text-indigo-600 font-medium mb-6 hover:underline flex items-center w-max">
+                <i class="fas fa-arrow-left mr-2"></i> Salir del Simulador
+            </button>
+            
+            <div class="bg-slate-800 text-white rounded-2xl shadow-xl overflow-hidden flex-1 flex flex-col">
+                <div class="bg-slate-900 p-6 border-b border-slate-700 flex justify-between items-center">
+                    <h2 class="text-xl font-bold flex items-center"><i class="fas fa-vr-cardboard text-emerald-400 mr-3 text-2xl"></i> Simulador: Caso "EcoTech"</h2>
+                    <span class="bg-slate-700 text-xs px-3 py-1 rounded-full font-mono" id="sim-progress">Fase 1/4</span>
+                </div>
+                
+                <div class="p-8 flex-1 flex flex-col">
+                    <div id="sim-story" class="text-lg leading-relaxed mb-8 text-slate-300">
+                        <!-- Content injected by JS -->
+                    </div>
+
+                    <div id="sim-options" class="grid grid-cols-1 gap-4 mt-auto">
+                        <!-- Buttons injected by JS -->
+                    </div>
+                </div>
+
+                <div id="sim-feedback-modal" class="hidden absolute inset-0 bg-slate-900/95 flex items-center justify-center p-6 z-20">
+                    <div class="bg-white text-slate-800 p-8 rounded-2xl max-w-md w-full text-center shadow-2xl scale-95 transition-transform" id="sim-modal-content">
+                        <div id="sim-icon" class="text-5xl mb-4"></div>
+                        <h3 id="sim-title" class="text-2xl font-bold mb-2"></h3>
+                        <p id="sim-message" class="text-slate-600 mb-6"></p>
+                        <button onclick="nextSimStep()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                            Continuar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. TEST VIEW -->
+        <div id="test-view" class="hidden min-h-full p-6 md:p-8 fade-in max-w-3xl mx-auto flex flex-col">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Test de Evaluación</h2>
+                <div class="text-sm font-bold bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg">
+                    Pregunta <span id="q-current">1</span> de 20
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 flex-1 flex flex-col overflow-hidden relative">
+                <!-- Progress bar -->
+                <div class="h-2 w-full bg-slate-100">
+                    <div id="test-progress" class="h-full bg-indigo-500 transition-all duration-300" style="width: 5%"></div>
+                </div>
+
+                <div class="p-6 md:p-10 flex-1 flex flex-col">
+                    <h3 id="question-text" class="text-xl md:text-2xl font-semibold text-slate-800 mb-8 leading-snug">
+                        <!-- Question text -->
+                    </h3>
+
+                    <div id="options-container" class="space-y-3 mt-auto">
+                        <!-- Options injected by JS -->
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 p-4 border-t border-slate-200 flex justify-between items-center">
+                    <button onclick="quitTest()" class="text-slate-500 hover:text-red-500 text-sm font-medium transition">
+                        Cancelar Examen
+                    </button>
+                    <button id="next-q-btn" onclick="nextQuestion()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Siguiente <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. RESULTS VIEW -->
+        <div id="results-view" class="hidden min-h-full p-6 flex items-center justify-center fade-in">
+            <div class="bg-white p-10 rounded-3xl shadow-xl max-w-lg w-full text-center">
+                <div id="result-icon" class="text-7xl mb-6"></div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Resultados del Examen</h2>
+                <p class="text-slate-500 mb-8" id="result-message"></p>
+                
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-8">
+                    <p class="text-sm text-slate-500 font-semibold uppercase tracking-wide mb-1">Calificación Final</p>
+                    <div class="text-5xl font-black text-indigo-600 mb-2" id="result-score">0 / 10</div>
+                    <p class="text-sm font-medium text-slate-600">Aciertos: <span id="result-correct">0</span> de 20 preguntas</p>
+                </div>
+
+                <button onclick="navigate('dashboard')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-lg shadow-indigo-200">
+                    Volver al Panel de Inicio
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- 1. DATOS Y ESTADO ---
+        
+        // Base de datos de estudiantes simulada a partir del CSV proporcionado
+        const students = [
+            { email: "alavaortiz8141@sagradocorazon.edu.ec", cedula: "0850812348", name: "ALAVA ORTIZ BERTHA ANAHIS" },
+            { email: "almeidamoreira8783@sagradocorazon.edu.ec", cedula: "1350673537", name: "ALMEIDA MOREIRA XIOMARA RUBY" },
+            { email: "arboledaarroyo8146@sagradocorazon.edu.ec", cedula: "0850598780", name: "ARBOLEDA ARROYO ANGELICA ADAMARIS" },
+            { email: "arevaloarismendi8100@sagradocorazon.edu.ec", cedula: "0850287590", name: "AREVALO ARISMENDI MATHIAS GABRIEL" },
+            { email: "moretavera8475@sagradocorazon.edu.ec", cedula: "0850870403", name: "MORETA VERA HILLARY ALEXANDRA" },
+            { email: "mosquerapenafiel8337@sagradocorazon.edu.ec", cedula: "0850220815", name: "MOSQUERA PEÑAFIEL DANNAY FIORELLA" },
+            { email: "muenteslopez8120@sagradocorazon.edu.ec", cedula: "0850079096", name: "MUENTES LOPEZ BORIS ARIEL" },
+            { email: "pallolujano6633@sagradocorazon.edu.ec", cedula: "0804823169", name: "PALLO LUJANO IKER SAMIR" },
+            { email: "test@test.com", cedula: "12345", name: "ESTUDIANTE DE PRUEBA" }
+        ];
+
+        let currentUser = null;
+
+        // Variables del Test
+        const quizQuestions = [
+            {
+                q: "¿Qué es fundamentalmente un negocio digital?",
+                options: [
+                    "Una empresa física que utiliza computadoras.",
+                    "El que basa sus transacciones y operaciones en tecnología digital y plataformas en línea.",
+                    "Un modelo de negocio que solo existe en redes sociales.",
+                    "Una corporación que vende exclusivamente hardware."
+                ],
+                answer: 1
+            },
+            {
+                q: "Si una empresa desarrolla software contable y lo vende mediante licencias anuales a firmas de auditoría, opera bajo el modelo:",
+                options: ["B2C", "C2C", "B2B", "C2B"],
+                answer: 2
+            },
+            {
+                q: "Plataformas como MercadoLibre o Marketplace de Facebook, donde los ciudadanos interactúan entre sí para vender artículos de segunda mano, son ejemplos de:",
+                options: ["B2C", "Marketplaces C2C", "Modelo Freemium", "B2B"],
+                answer: 1
+            },
+            {
+                q: "Un diseñador gráfico independiente ofrece crear logotipos para agencias de publicidad a través de una web. Este modelo es:",
+                options: ["C2B", "B2C", "C2C", "B2B"],
+                answer: 0
+            },
+            {
+                q: "¿Cuál es el componente de una tienda en línea encargado específicamente de agrupar los productos antes del pago?",
+                options: ["El catálogo de productos", "La pasarela de pagos", "El carrito de compras", "El certificado de seguridad (SSL)"],
+                answer: 2
+            },
+            {
+                q: "Spotify ofrece una versión con anuncios sin costo, pero cobra una mensualidad para escuchar música sin interrupciones y offline. Esto ejemplifica el modelo:",
+                options: ["Marketing de Afiliados", "Freemium", "C2B", "Dropshipping"],
+                answer: 1
+            },
+            {
+                q: "En el contexto del emprendimiento digital, ¿cuál de estas es una ventaja operativa directa frente al comercio tradicional?",
+                options: ["Menor costo operativo por no requerir infraestructura física constante.", "Mayor necesidad de personal físico de ventas.", "Dependencia exclusiva de inventario local.", "Imposibilidad de operar 24/7."],
+                answer: 0
+            },
+            {
+                q: "¿Qué concepto define a una gran plataforma digital que conecta a múltiples vendedores diferentes con miles de compradores (ej. Amazon)?",
+                options: ["Suscripción", "Marketplace", "Blogger", "Freemium"],
+                answer: 1
+            },
+            {
+                q: "¿Qué componente de la tienda online se encarga de proteger los datos financieros y personales del usuario?",
+                options: ["La logística", "El catálogo", "Seguridad y confianza (ej. encriptación)", "El carrito de compras"],
+                answer: 2
+            },
+            {
+                q: "¿Qué significa el concepto de 'Escalabilidad' en el ámbito de los negocios digitales?",
+                options: [
+                    "La capacidad de subir los precios rápidamente.",
+                    "La habilidad del negocio de crecer exponencialmente en ingresos sin aumentar sus costos al mismo nivel.",
+                    "Vender productos físicos muy pesados.",
+                    "Contratar más empleados cada mes."
+                ],
+                answer: 1
+            },
+            {
+                q: "¿Qué es un MVP (Producto Mínimo Viable)?",
+                options: [
+                    "El producto más caro del catálogo.",
+                    "La versión de un producto con las características esenciales para probar su viabilidad en el mercado real.",
+                    "Un producto que no sirve y se desecha.",
+                    "El producto más vendido en la historia de la empresa."
+                ],
+                answer: 1
+            },
+            {
+                q: "El indicador que mide cuánto dinero invierte una empresa en marketing para conseguir que un nuevo cliente compre, se llama:",
+                options: ["Costo Operativo (CO)", "Tasa de Conversión", "Costo de Adquisición de Cliente (CAC)", "Flujo de caja"],
+                answer: 2
+            },
+            {
+                q: "¿Qué estrategia busca posicionar orgánicamente una web en los primeros resultados de Google?",
+                options: ["Publicidad Pagada (SEM)", "SEO (Search Engine Optimization)", "Dropshipping", "Marketing de Afiliados"],
+                answer: 1
+            },
+            {
+                q: "En una tienda en línea, el área que se encarga de que el producto físico llegue desde la bodega hasta las manos del comprador se denomina:",
+                options: ["Proceso de pago", "Catálogo", "Logística y envío", "Seguridad"],
+                answer: 2
+            },
+            {
+                q: "¿Qué es el Dropshipping?",
+                options: [
+                    "Vender productos al por mayor.",
+                    "Un modelo donde la tienda no guarda stock propio; el mayorista envía el producto directamente al cliente final.",
+                    "Crear software para empresas.",
+                    "Entregar productos en paracaídas."
+                ],
+                answer: 1
+            },
+            {
+                q: "Promocionar productos de otra empresa mediante enlaces especiales y recibir una comisión por cada venta generada se conoce como:",
+                options: ["C2B", "Suscripción", "Marketing de Afiliados", "Freemium"],
+                answer: 2
+            },
+            {
+                q: "En el mundo digital, la métrica 'Tasa de conversión' (Conversion Rate) indica:",
+                options: [
+                    "El porcentaje de visitantes que completan una acción deseada (como realizar una compra).",
+                    "El tiempo que tarda en cargar la página.",
+                    "Cuántos dólares cambia la gente.",
+                    "La cantidad de productos devueltos."
+                ],
+                answer: 0
+            },
+            {
+                q: "Si tienes un emprendimiento digital, una 'Mayor velocidad de lanzamiento' implica que:",
+                options: [
+                    "Los servidores son muy rápidos.",
+                    "Puedes llegar al mercado y probar tu producto antes que la competencia tradicional.",
+                    "Los camiones de reparto van más rápido.",
+                    "El proceso de pago falla a menudo."
+                ],
+                answer: 1
+            },
+            {
+                q: "Netflix y los gimnasios modernos basan sus principales ingresos financieros en un modelo de:",
+                options: ["Venta al por menor", "Suscripciones recurrentes", "Donaciones (C2C)", "Venta de hardware"],
+                answer: 1
+            },
+            {
+                q: "¿Por qué el componente 'Proceso de pago' es crítico en el emprendimiento digital?",
+                options: [
+                    "Porque allí se suben las fotos de los productos.",
+                    "Es el medio tecnológico que procesa y valida la información bancaria para finalizar la transacción comercial.",
+                    "Porque sin él no hay carritos de compras físicos.",
+                    "Es donde se configura el SEO."
+                ],
+                answer: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let selectedAnswers = [];
+
+        // Variables del Simulador
+        let currentSimStep = 0;
+        const simScenario = [
+            {
+                story: "<strong>Fase 1: Identificación del Cliente.</strong><br><br>Eres consultor de 'EcoTech'. Ellos fabrican cuadernos reciclables y los quieren vender directamente a universitarios mediante una web propia. <br><br>¿Qué modelo de negocio principal deben estructurar?",
+                options: [
+                    { text: "Modelo B2B (Vender a otras empresas)", correct: false, msg: "Incorrecto. B2B es empresa a empresa. Ellos quieren vender al universitario directamente." },
+                    { text: "Modelo B2C (Vender al consumidor final)", correct: true, msg: "¡Excelente! B2C es el modelo directo de la marca al usuario final." },
+                    { text: "Modelo C2C (Consumidor a consumidor)", correct: false, msg: "Incorrecto. EcoTech es una empresa fabricando, no un consumidor vendiendo." }
+                ]
+            },
+            {
+                story: "<strong>Fase 2: Expansión de Servicios.</strong><br><br>EcoTech acepta tu propuesta B2C. Ahora, quieren agregar un foro donde los estudiantes puedan venderse libros usados entre ellos, para atraer más tráfico.<br><br>¿Qué modelo operaría en esta nueva sección específica?",
+                options: [
+                    { text: "Modelo C2C (Consumidor a Consumidor)", correct: true, msg: "¡Correcto! Los estudiantes (consumidores) interactúan comercialmente entre sí." },
+                    { text: "Modelo C2B (Consumidor a Empresa)", correct: false, msg: "Incorrecto. Ellos se venderían entre ellos, no a la empresa." },
+                    { text: "Freemium", correct: false, msg: "Incorrecto. Freemium se refiere a gratis con opciones de pago, no define quién vende a quién." }
+                ]
+            },
+            {
+                story: "<strong>Fase 3: Infraestructura Técnica.</strong><br><br>Para lanzar la tienda B2C, necesitas priorizar los componentes de desarrollo. Los usuarios se quejan de que no sienten que sus tarjetas estén seguras.<br><br>¿Qué componente de la tienda en línea debes mejorar urgentemente?",
+                options: [
+                    { text: "El catálogo de productos", correct: false, msg: "Las fotos de los productos no resuelven el miedo a fraudes bancarios." },
+                    { text: "La logística y envío", correct: false, msg: "El envío ocurre después del pago. El problema actual es el miedo a pagar." },
+                    { text: "Seguridad y confianza (SSL, insignias)", correct: true, msg: "¡Perfecto! Debes implementar certificados SSL y sellos de confianza para proteger los datos." }
+                ]
+            },
+            {
+                story: "<strong>Fase 4: Estrategia de Crecimiento.</strong><br><br>La tienda es un éxito, pero el crecimiento de ingresos está estancado. Quieres que los usuarios paguen un pequeño valor mensual de $5 para recibir cuadernos nuevos automáticamente cada semestre y tener envíos gratis.<br><br>¿Hacia qué modelo estás evolucionando el negocio?",
+                options: [
+                    { text: "Modelo de Suscripciones", correct: true, msg: "¡Brillante! Has transformado compras únicas en ingresos recurrentes y predecibles." },
+                    { text: "Dropshipping", correct: false, msg: "Incorrecto. EcoTech fabrica sus propios cuadernos, no triangula envíos." },
+                    { text: "Marketing de Afiliados", correct: false, msg: "Incorrecto. No estás pagando comisiones por ventas referidas." }
+                ]
+            }
+        ];
+
+
+        // --- 2. FUNCIONES DE NAVEGACIÓN Y AUTH ---
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('email').value.trim();
+            const passInput = document.getElementById('password').value.trim();
+
+            const user = students.find(s => s.email === emailInput && s.cedula === passInput);
+            
+            if (user) {
+                currentUser = user;
+                document.getElementById('login-error').classList.add('hidden');
+                document.getElementById('welcome-name').textContent = user.name;
+                document.getElementById('user-name-display').textContent = user.name;
+                document.getElementById('user-profile').classList.remove('hidden');
+                document.getElementById('user-profile').classList.add('flex');
+                navigate('dashboard');
+            } else {
+                const errDiv = document.getElementById('login-error');
+                errDiv.classList.remove('hidden');
+                errDiv.classList.add('fade-in');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('user-profile').classList.add('hidden');
+            document.getElementById('user-profile').classList.remove('flex');
+            navigate('login');
+        }
+
+        function navigate(viewId) {
+            const views = ['login', 'dashboard', 'learn', 'simulation', 'test', 'results'];
+            views.forEach(v => {
+                document.getElementById(v + '-view').classList.add('hidden');
+            });
+            document.getElementById(viewId + '-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
+
+            // Trigger specific inits
+            if (viewId === 'test') initTest();
+            if (viewId === 'simulation') initSimulation();
+        }
+
+        // --- 3. LOGICA DEL TEST ---
+
+        function initTest() {
+            currentQuestionIndex = 0;
+            selectedAnswers = new Array(20).fill(null);
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = quizQuestions[currentQuestionIndex];
+            document.getElementById('q-current').textContent = currentQuestionIndex + 1;
+            document.getElementById('question-text').textContent = q.q;
+            
+            const progress = ((currentQuestionIndex) / 20) * 100;
+            document.getElementById('test-progress').style.width = progress + '%';
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const isSelected = selectedAnswers[currentQuestionIndex] === index;
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center ${isSelected ? 'border-indigo-600 bg-indigo-50 text-indigo-800' : 'border-slate-200 hover:border-indigo-300 hover:bg-slate-50 text-slate-700'}`;
+                
+                // Add letter (A, B, C, D)
+                const letter = String.fromCharCode(65 + index);
+                
+                btn.innerHTML = `
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold mr-4 ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-600'}">
+                        ${letter}
+                    </div>
+                    <span class="flex-1 font-medium">${opt}</span>
+                `;
+                
+                btn.onclick = () => selectOption(index);
+                optionsContainer.appendChild(btn);
+            });
+
+            checkNextButton();
+        }
+
+        function selectOption(idx) {
+            selectedAnswers[currentQuestionIndex] = idx;
+            renderQuestion(); // Re-render to show selection
+        }
+
+        function checkNextButton() {
+            const btn = document.getElementById('next-q-btn');
+            if (selectedAnswers[currentQuestionIndex] !== null) {
+                btn.disabled = false;
+                if (currentQuestionIndex === 19) {
+                    btn.innerHTML = 'Finalizar Examen <i class="fas fa-flag-checkered ml-1"></i>';
+                    btn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+                    btn.classList.replace('hover:bg-indigo-700', 'hover:bg-emerald-700');
+                } else {
+                    btn.innerHTML = 'Siguiente <i class="fas fa-chevron-right ml-1"></i>';
+                    btn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+                    btn.classList.replace('hover:bg-emerald-700', 'hover:bg-indigo-700');
+                }
+            } else {
+                btn.disabled = true;
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < 19) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishTest();
+            }
+        }
+
+        function quitTest() {
+            if(confirm("¿Estás seguro de que deseas cancelar el examen? Se perderá tu progreso actual.")){
+                navigate('dashboard');
+            }
+        }
+
+        function finishTest() {
+            let correct = 0;
+            quizQuestions.forEach((q, idx) => {
+                if (selectedAnswers[idx] === q.answer) correct++;
+            });
+
+            // Calificar sobre 10 puntos (0.5 por pregunta)
+            const score = ((correct / 20) * 10).toFixed(1);
+            
+            document.getElementById('result-score').textContent = score + " / 10";
+            document.getElementById('result-correct').textContent = correct;
+
+            const icon = document.getElementById('result-icon');
+            const msg = document.getElementById('result-message');
+            
+            if (score >= 7) {
+                icon.innerHTML = '<i class="fas fa-trophy text-yellow-400"></i>';
+                msg.innerHTML = "¡Excelente trabajo! Has demostrado un dominio superior de los conceptos de emprendimiento digital.";
+                msg.className = "text-emerald-600 font-medium mb-8";
+            } else {
+                icon.innerHTML = '<i class="fas fa-book-reader text-indigo-400"></i>';
+                msg.innerHTML = "Buen intento, pero necesitas repasar los conceptos. Vuelve al módulo de 'Aprender' e inténtalo de nuevo.";
+                msg.className = "text-amber-600 font-medium mb-8";
+            }
+
+            navigate('results');
+        }
+
+        // --- 4. LOGICA DEL SIMULADOR ---
+
+        let simSuccessCount = 0;
+
+        function initSimulation() {
+            currentSimStep = 0;
+            simSuccessCount = 0;
+            renderSimStep();
+        }
+
+        function renderSimStep() {
+            const step = simScenario[currentSimStep];
+            document.getElementById('sim-progress').textContent = `Fase ${currentSimStep + 1}/${simScenario.length}`;
+            document.getElementById('sim-story').innerHTML = step.story;
+            
+            const optionsContainer = document.getElementById('sim-options');
+            optionsContainer.innerHTML = '';
+
+            step.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left bg-slate-700 hover:bg-slate-600 p-4 rounded-xl border border-slate-600 transition-colors text-white font-medium flex items-center gap-3";
+                btn.innerHTML = `<i class="fas fa-hand-pointer text-slate-400"></i> ${opt.text}`;
+                btn.onclick = () => handleSimChoice(opt);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleSimChoice(option) {
+            const modal = document.getElementById('sim-feedback-modal');
+            const icon = document.getElementById('sim-icon');
+            const title = document.getElementById('sim-title');
+            const msg = document.getElementById('sim-message');
+
+            if (option.correct) {
+                icon.innerHTML = '<i class="fas fa-check-circle text-emerald-500"></i>';
+                title.textContent = "¡Decisión Correcta!";
+                title.className = "text-2xl font-bold mb-2 text-emerald-600";
+                simSuccessCount++;
+            } else {
+                icon.innerHTML = '<i class="fas fa-times-circle text-red-500"></i>';
+                title.textContent = "Mala Decisión";
+                title.className = "text-2xl font-bold mb-2 text-red-600";
+            }
+
+            msg.textContent = option.msg;
+            modal.classList.remove('hidden');
+        }
+
+        function nextSimStep() {
+            document.getElementById('sim-feedback-modal').classList.add('hidden');
+            currentSimStep++;
+
+            if (currentSimStep < simScenario.length) {
+                renderSimStep();
+            } else {
+                endSimulation();
+            }
+        }
+
+        function endSimulation() {
+            const container = document.getElementById('sim-options');
+            const story = document.getElementById('sim-story');
+            
+            document.getElementById('sim-progress').textContent = "Finalizado";
+            container.innerHTML = `<button onclick="navigate('dashboard')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl mt-4">Terminar Consultoría</button>`;
+            
+            if (simSuccessCount === 4) {
+                story.innerHTML = `<div class="text-center"><i class="fas fa-award text-6xl text-yellow-400 mb-4"></i><h3 class="text-2xl text-white font-bold mb-2">¡Consultoría Perfecta!</h3><p class="text-slate-300">EcoTech aplicó tus estrategias y ha levantado capital para expandirse. Dominas los modelos digitales.</p></div>`;
+            } else if (simSuccessCount >= 2) {
+                story.innerHTML = `<div class="text-center"><i class="fas fa-chart-line text-6xl text-blue-400 mb-4"></i><h3 class="text-2xl text-white font-bold mb-2">Consultoría Aceptable</h3><p class="text-slate-300">La startup sobrevivió, pero cometiste algunos errores estratégicos. Sigue practicando.</p></div>`;
+            } else {
+                story.innerHTML = `<div class="text-center"><i class="fas fa-dumpster-fire text-6xl text-red-400 mb-4"></i><h3 class="text-2xl text-white font-bold mb-2">La Startup Quebró</h3><p class="text-slate-300">Tus decisiones no fueron las mejores para el mundo digital. ¡Revisa la teoría e inténtalo de nuevo!</p></div>`;
+            }
+        }
+
+    </script>
+</body>
+</html>
