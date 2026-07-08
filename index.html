@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmprendeTech: Academia Digital</title>
+    <title>EmprendeTech: Academia Digital - Informática Aplicada</title>
     <!-- Tailwind CSS para el diseño responsive y estilización premium -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome para iconografía interactiva -->
@@ -12,6 +12,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        /* REQUERIMIENTO: Colocar barras de desplazamiento (arriba, abajo, derecha, izquierda) en todas las ventanas */
+        html, body {
+            overflow: scroll !important; /* Forzar barras de desplazamiento en navegador */
+            scrollbar-width: auto !important; /* Forzar scrollbar estándar en Firefox */
+        }
         
         /* SEGURIDAD ACTIVA: Bloqueo de selección de texto en toda la interfaz */
         body { 
@@ -39,7 +45,7 @@
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="text-slate-800 h-screen flex flex-col overflow-hidden">
+<body class="text-slate-800 h-screen flex flex-col">
 
     <!-- Barra de Navegación Principal -->
     <nav class="bg-indigo-950 text-white px-6 py-4 shadow-lg flex justify-between items-center z-10 border-b border-indigo-900/40">
@@ -49,9 +55,17 @@
             </div>
             <div>
                 <h1 class="text-lg font-extrabold tracking-tight">EmprendeTech</h1>
-                <p class="text-[10px] text-indigo-300 uppercase tracking-widest font-semibold">Ecosistema Seguro de Aprendizaje</p>
+                <p class="text-[10px] text-indigo-300 uppercase tracking-widest font-semibold">Informática Aplicada · Ecosistema Seguro</p>
             </div>
         </div>
+        
+        <!-- Indicador del Docente (Visible en todas las pantallas) -->
+        <div class="flex items-center">
+            <span class="bg-indigo-900/85 px-3 py-1.5 md:px-4 md:py-2 rounded-xl text-[10px] md:text-xs font-bold border border-indigo-800/80 text-indigo-200">
+                <i class="fas fa-chalkboard-teacher mr-1.5 md:mr-2 text-indigo-400"></i>Docente: Ing. César Godoy Rosero, Mgt.
+            </span>
+        </div>
+
         <div id="user-profile" class="hidden flex items-center gap-4">
             <div class="bg-indigo-900 px-4 py-2 rounded-xl text-xs md:text-sm border border-indigo-800/80">
                 <i class="fas fa-user-circle mr-2 text-indigo-300"></i>
@@ -63,24 +77,27 @@
         </div>
     </nav>
 
-    <!-- Contenedor Dinámico de Vistas -->
-    <main class="flex-1 overflow-y-auto hide-scroll relative">
+    <!-- Contenedor Dinámico de Vistas con scrollbars habilitadas -->
+    <main class="flex-1 p-4 md:p-8 overflow-auto relative">
         
         <!-- 1. VISTA DE INICIO DE SESIÓN (LOGIN) -->
-        <div id="login-view" class="min-h-full flex items-center justify-center p-6 bg-gradient-to-tr from-slate-950 via-indigo-950 to-slate-950">
-            <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 border border-indigo-100/10 relative overflow-hidden fade-in">
+        <div id="login-view" class="min-h-full flex items-center justify-center p-6 bg-gradient-to-tr from-slate-950 via-indigo-950 to-slate-950 rounded-2xl">
+            <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 border border-indigo-100/10 relative overflow-auto fade-in">
                 <div class="absolute -right-16 -top-16 w-36 h-36 bg-indigo-100 rounded-full blur-2xl opacity-50"></div>
                 
-                <div class="text-center mb-8 relative z-10">
+                <div class="text-center mb-6 relative z-10">
                     <div class="w-16 h-16 bg-indigo-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg shadow-indigo-500/30">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h2 class="text-2xl font-black text-slate-800">Acceso Institucional</h2>
-                    <p class="text-slate-500 text-xs mt-2">Plataforma Educativa de Emprendimiento Digital</p>
+                    <p class="text-slate-500 text-xs mt-2">Plataforma Educativa de Informática Aplicada</p>
+                    <div class="mt-3 bg-indigo-50 text-indigo-900 py-1.5 px-3 rounded-xl text-[11px] font-bold inline-block border border-indigo-100">
+                        <i class="fas fa-chalkboard-teacher mr-1"></i> Docente: Ing. César Godoy Rosero, Mgt.
+                    </div>
                 </div>
 
                 <div id="login-error" class="hidden bg-rose-50 text-rose-600 p-4 rounded-xl text-xs font-semibold mb-4 border border-rose-100 text-center flex items-center gap-2 justify-center">
-                    <i class="fas fa-exclamation-triangle"></i> Credenciales de acceso incorrectas. Intenta nuevamente.
+                    <i class="fas fa-exclamation-triangle"></i> Credenciales de acceso incorrectas. Intenta nuevamente o reporta al docente.
                 </div>
 
                 <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4 relative z-10">
@@ -104,18 +121,24 @@
                 </form>
 
                 <div class="mt-6 border-t border-slate-100 pt-6 text-center">
-                    <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Unidad Educativa Particular Sagrado Corazón</span>
+                    <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-widest block">Unidad Educativa Particular Sagrado Corazón</span>
                 </div>
             </div>
         </div>
 
         <!-- 2. PANEL DE CONTROL (DASHBOARD) -->
-        <div id="dashboard-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-7xl mx-auto">
+        <div id="dashboard-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-7xl mx-auto overflow-auto">
+            <div class="mb-6 text-center">
+                <span class="bg-indigo-100 text-indigo-900 px-4 py-2 rounded-xl text-xs font-bold border border-indigo-200 inline-block">
+                    <i class="fas fa-chalkboard-teacher mr-2 text-indigo-600"></i>Docente: Ing. César Godoy Rosero, Mgt.
+                </span>
+            </div>
+
             <div class="bg-gradient-to-r from-indigo-900 to-indigo-950 rounded-3xl p-8 text-white shadow-xl mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <span class="bg-indigo-500/30 text-indigo-200 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Módulo Académico Activo</span>
+                    <span class="bg-indigo-500/30 text-indigo-200 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Módulo Académico Activo · Informática aplicada</span>
                     <h2 class="text-2xl md:text-4xl font-extrabold mt-2">Bienvenido, <span id="welcome-name" class="text-indigo-300"></span></h2>
-                    <p class="text-indigo-200/80 mt-2 text-sm md:text-base">Aprende los fundamentos comerciales digitales, simula startups en Ecuador y rinde tu evaluación formal.</p>
+                    <p class="text-indigo-200/80 mt-2 text-sm md:text-base">Domina los modelos de comercio electrónico, tiendas en línea y los nuevos esquemas de monetización en redes sociales.</p>
                 </div>
                 <div class="bg-indigo-950/60 p-4 rounded-2xl border border-indigo-800 flex flex-col items-center min-w-[140px]">
                     <span class="text-[10px] text-indigo-300 font-bold uppercase tracking-wider">Intentos de Test</span>
@@ -125,24 +148,24 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Modulo 1: Aprendizaje -->
-                <div onclick="navigate('learn')" class="bg-white p-8 rounded-3xl border border-slate-100 cursor-pointer card-hover flex flex-col h-full group relative overflow-hidden">
+                <div onclick="navigate('learn')" class="bg-white p-8 rounded-3xl border border-slate-100 cursor-pointer card-hover flex flex-col h-full group relative overflow-auto">
                     <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-slate-800">1. Núcleo Teórico & Casos</h3>
-                    <p class="text-slate-500 text-sm flex-1 mb-6">Contenidos oficiales enriquecidos con casos reales de Ecuador (Kushki, Tipti, Supermaxi) y del mundo. Incluye enlaces de valor y un mini-test de validación.</p>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">1. Núcleo Teórico & Redes</h3>
+                    <p class="text-slate-500 text-sm flex-1 mb-6">Contenidos curriculares detallados de e-commerce, tiendas en línea y análisis exhaustivo de monetización de creadores en redes sociales. Incluye mini-test evaluativo.</p>
                     <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider flex items-center group-hover:translate-x-2 transition-transform">
                         Estudiar Teoría <i class="fas fa-arrow-right ml-2"></i>
                     </span>
                 </div>
                 
                 <!-- Modulo 2: Laboratorio de Simulación -->
-                <div onclick="navigate('simulation')" class="bg-white p-8 rounded-3xl border border-slate-100 cursor-pointer card-hover flex flex-col h-full group relative overflow-hidden">
+                <div onclick="navigate('simulation')" class="bg-white p-8 rounded-3xl border border-slate-100 cursor-pointer card-hover flex flex-col h-full group relative overflow-auto">
                     <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-flask"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-slate-800">2. Laboratorios de Startups</h3>
-                    <p class="text-slate-500 text-sm flex-1 mb-6">Un simulador especializado para cada modelo (B2B, B2C, C2C y Suscripción). Configura tu empresa, integra logística real y evalúa tu ROI comercial.</p>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">2. Simuladores de E-commerce</h3>
+                    <p class="text-slate-500 text-sm flex-1 mb-6">Laboratorios reales de e-commerce (B2C, B2B, C2C) y el innovador simulador de monetización de contenido y marcas en redes sociales con evaluación de ROI.</p>
                     <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider flex items-center group-hover:translate-x-2 transition-transform">
                         Ingresar al Simulador <i class="fas fa-arrow-right ml-2"></i>
                     </span>
@@ -154,94 +177,125 @@
                         <i class="fas fa-file-signature"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-slate-800">3. Evaluación de Nivel</h3>
-                    <p class="text-slate-500 text-sm flex-1 mb-6">Examen de alta exigencia académica de 20 preguntas sin opción de cancelación. Obtén retroalimentación inmediata, refuerzo educativo y reportes en PDF.</p>
+                    <p class="text-slate-500 text-sm flex-1 mb-6">Examen de alta exigencia de 20 preguntas aleatorias sin opción de cancelación. Tiempo no volátil por pregunta de 30 segundos y fase de replanteamiento.</p>
                     <span class="text-amber-600 font-bold text-xs uppercase tracking-wider flex items-center group-hover:translate-x-2 transition-transform">
                         Comenzar Evaluación <i class="fas fa-arrow-right ml-2"></i>
                     </span>
                 </div>
             </div>
+
+            <!-- Footer Académico Permanente -->
+            <div class="mt-12 text-center text-xs text-slate-400 font-semibold uppercase tracking-wider">
+                Unidad Educativa Particular Sagrado Corazón · Docente: Ing. César Godoy Rosero, Mgt.
+            </div>
         </div>
 
         <!-- 3. NÚCLEO TEÓRICO (LEARN VIEW) -->
-        <div id="learn-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-5xl mx-auto">
+        <div id="learn-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-5xl mx-auto overflow-auto">
             <button onclick="navigate('dashboard')" class="text-indigo-600 font-bold text-xs uppercase tracking-wider mb-6 hover:underline flex items-center gap-2">
                 <i class="fas fa-arrow-left"></i> Volver al panel principal
             </button>
-            <div class="mb-8">
-                <span class="text-xs bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full uppercase tracking-wider">Material Didáctico Homologado</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mt-2">Fundamentos de Emprendimiento Digital</h2>
+            <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="text-xs bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full uppercase tracking-wider">Unidad Didáctica Homologada · Informática aplicada</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mt-2">Modelos de Negocio Digital y Tiendas Online</h2>
+                </div>
+                <div class="bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl text-xs font-bold text-indigo-800 text-center">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>Docente: Ing. César Godoy Rosero, Mgt.
+                </div>
             </div>
 
             <div class="space-y-8">
                 <!-- Seccion 1: Negocios Digitales -->
-                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm overflow-auto">
                     <h3 class="text-xl font-bold text-indigo-950 flex items-center gap-3 mb-4">
-                        <i class="fas fa-globe-americas text-indigo-600"></i> 1. El Concepto de Negocio Digital y su Ventaja Competitiva
+                        <i class="fas fa-globe-americas text-indigo-600"></i> 1. El Concepto de Negocio Digital en Informática Aplicada
                     </h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                        Un negocio digital utiliza tecnologías informáticas y plataformas interconectadas para crear valor, concretar ventas y optimizar flujos comerciales. Su principal ventaja radica en la reducción sistemática de costos fijos por la ausencia de infraestructura inmobiliaria tradicional, combinada con una altísima velocidad de lanzamiento y escalabilidad de mercados.
+                        En el ámbito de la <strong>Informática aplicada</strong>, un negocio digital constituye un ecosistema que aprovecha infraestructuras de red, bases de datos relacionales, pasarelas de intercambio de información y metodologías de automatización para estructurar transacciones comerciales online. Su principal valor reside en la desmaterialización de activos físicos, lo que reduce costos operativos y acelera drásticamente la velocidad de lanzamiento (Time-to-Market) de productos digitales, permitiendo probar la viabilidad real con audiencias segmentadas.
                     </p>
                     <div class="bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded-r-xl">
-                        <h4 class="font-bold text-indigo-950 text-xs uppercase tracking-wider mb-1">Caso Real - Ecuador / Supermaxi</h4>
+                        <h4 class="font-bold text-indigo-950 text-xs uppercase tracking-wider mb-1">Caso Real - Ecuador / Supermaxi y Tipti</h4>
                         <p class="text-xs text-indigo-900/90 leading-relaxed">
-                            Corporación Favorita ha impulsado la digitalización total mediante sus aplicaciones de venta en línea integradas y alianzas con la plataforma Tipti para la entrega en tiempo récord a nivel nacional, combinando tiendas físicas con una logística digital de alta eficiencia.
+                            Corporación Favorita integró soluciones informáticas avanzadas en sus bases de datos para permitir que intermediarios tecnológicos como Tipti sincronicen inventarios físicos de Supermaxi en tiempo real, agilizando el aprovisionamiento y despacho del e-commerce nacional.
                         </p>
                     </div>
                 </div>
 
-                <!-- Seccion 2: Modelos de Negocio -->
-                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
-                    <h3 class="text-xl font-bold text-indigo-950 flex items-center gap-3 mb-6">
-                        <i class="fas fa-sitemap text-indigo-600"></i> 2. Tipologías y Modelos de E-Commerce
+                <!-- Seccion 2: Componentes Esenciales de una Tienda en Línea -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm overflow-auto">
+                    <h3 class="text-xl font-bold text-indigo-950 flex items-center gap-3 mb-4">
+                        <i class="fas fa-store text-indigo-600"></i> 2. Arquitectura de una Tienda Online (E-Commerce)
                     </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Toda tienda virtual opera bajo cinco subsistemas informáticos esenciales que guían al cliente en su embudo de conversión:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 text-center">
+                            <div class="text-indigo-600 text-lg mb-2"><i class="fas fa-images"></i></div>
+                            <h4 class="font-bold text-xs text-slate-800 mb-1">Catálogo</h4>
+                            <p class="text-[10px] text-slate-500">Mapeo taxonómico y visual de SKUs.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 text-center">
+                            <div class="text-indigo-600 text-lg mb-2"><i class="fas fa-shopping-cart"></i></div>
+                            <h4 class="font-bold text-xs text-slate-800 mb-1">Carrito</h4>
+                            <p class="text-[10px] text-slate-500">Persistencia temporal de ítems seleccionados.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 text-center">
+                            <div class="text-indigo-600 text-lg mb-2"><i class="fas fa-credit-card"></i></div>
+                            <h4 class="font-bold text-xs text-slate-800 mb-1">Pasarela</h4>
+                            <p class="text-[10px] text-slate-500">Validación y liquidación transaccional segura.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 text-center">
+                            <div class="text-indigo-600 text-lg mb-2"><i class="fas fa-shield-alt"></i></div>
+                            <h4 class="font-bold text-xs text-slate-800 mb-1">Seguridad</h4>
+                            <p class="text-[10px] text-slate-500">Cifrado de datos SSL y tokenización.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 text-center">
+                            <div class="text-indigo-600 text-lg mb-2"><i class="fas fa-truck"></i></div>
+                            <h4 class="font-bold text-slate-800 mt-0.5">Logística</h4>
+                            <p class="text-[10px] text-slate-500 mt-1">Sistemas de distribución y tracking final.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seccion 3: Nuevos Modelos en Redes Sociales y Monetización -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm overflow-auto">
+                    <h3 class="text-xl font-bold text-indigo-950 flex items-center gap-3 mb-6">
+                        <i class="fas fa-share-nodes text-indigo-600"></i> 3. E-Commerce Social y Modelos de Monetización
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        La convergencia de la informática y el entretenimiento dio origen al <strong>Social Commerce</strong>, permitiendo que las redes sociales dejen de ser meros escaparates de marca para convertirse en canales transaccionales integrados. Los creadores y pymes ya no derivan tráfico hacia webs externas, sino que concretan ventas in-app y diversifican sus ingresos con múltiples maneras de monetización digital:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex flex-col justify-between">
                             <div>
-                                <span class="text-xs bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded uppercase tracking-wider">B2C</span>
-                                <h4 class="font-bold text-slate-800 mt-2 mb-1">Business to Consumer (Empresa a Consumidor)</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed mb-4">La empresa vende directamente productos y servicios al consumidor final mediante su tienda virtual.</p>
-                            </div>
-                            <div class="text-[11px] bg-white p-3 rounded-lg border border-slate-100 mt-2">
-                                <strong>Caso Real:</strong> <a href="https://www.tipti.market" target="_blank" class="text-indigo-600 hover:underline"><i class="fas fa-external-link-alt"></i> Tipti (Ecuador)</a>, el asistente de compras a domicilio líder en el país.
+                                <span class="bg-indigo-200 text-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Patrocinio de Marcas</span>
+                                <h4 class="font-bold text-slate-800 mt-2 mb-1">Campaña de Contenido Integrado</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed">Marcas contratan directamente el alcance de influencers para integrar productos dentro de piezas de video, reels o post de alta fidelidad, monetizando a través de acuerdos directos o agencias de representación.</p>
                             </div>
                         </div>
-                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                        <div class="bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100 flex flex-col justify-between">
                             <div>
-                                <span class="text-xs bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded uppercase tracking-wider">B2B</span>
-                                <h4 class="font-bold text-slate-800 mt-2 mb-1">Business to Business (Empresa a Empresa)</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed mb-4">Relación comercial de provisión corporativa, software tipo SaaS, o transacciones de volumen industrial entre firmas.</p>
-                            </div>
-                            <div class="text-[11px] bg-white p-3 rounded-lg border border-slate-100 mt-2">
-                                <strong>Caso Real:</strong> <a href="https://kushkipay.com" target="_blank" class="text-indigo-600 hover:underline"><i class="fas fa-external-link-alt"></i> Kushki</a>, plataforma fintech ecuatoriana que procesa cobros digitales masivos B2B.
+                                <span class="bg-emerald-200 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Red de Afiliados</span>
+                                <h4 class="font-bold text-slate-800 mt-2 mb-1">Marketing de Afiliación (Affiliate Network)</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed">El creador de contenido inserta enlaces de tracking (parámetros UTM) en su biografía o videos. Por cada venta validada que el usuario complete en la plataforma del tercero (ej. Amazon Associates), el afiliado recibe una comisión porcentual.</p>
                             </div>
                         </div>
-                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                        <div class="bg-purple-50/50 p-6 rounded-2xl border border-purple-100 flex flex-col justify-between">
                             <div>
-                                <span class="text-xs bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded uppercase tracking-wider">C2C</span>
-                                <h4 class="font-bold text-slate-800 mt-2 mb-1">Consumer to Consumer (Consumidor a Consumidor)</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed mb-4">Los usuarios interactúan y comercializan de forma directa usando un intermediario confiable de software.</p>
-                            </div>
-                            <div class="text-[11px] bg-white p-3 rounded-lg border border-slate-100 mt-2">
-                                <strong>Caso Real:</strong> <a href="https://www.mercadolibre.com.ec" target="_blank" class="text-indigo-600 hover:underline"><i class="fas fa-external-link-alt"></i> MercadoLibre Ecuador</a>, el mercado abierto en red de mayor uso regional.
-                            </div>
-                        </div>
-                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col justify-between">
-                            <div>
-                                <span class="text-xs bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded uppercase tracking-wider">C2B</span>
-                                <h4 class="font-bold text-slate-800 mt-2 mb-1">Consumer to Business (Consumidor a Empresa)</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed mb-4">Consumidores particulares aportan valor publicitario o servicios profesionales técnicos y las empresas los retribuyen comercialmente.</p>
-                            </div>
-                            <div class="text-[11px] bg-white p-3 rounded-lg border border-slate-100 mt-2">
-                                <strong>Caso Real:</strong> Los creadores de contenido digitales y consultores independientes ecuatorianos comercializando servicios a marcas nacionales.
+                                <span class="bg-purple-200 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Suscripción & Fans</span>
+                                <h4 class="font-bold text-slate-800 mt-2 mb-1">Membresías e Infoproductos</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed">Plataformas como Patreon o Twitch permiten cobrar suscripciones mensuales recurrentes a cambio de beneficios premium y contenido digital exclusivo (ej. plantillas de Notion, cursos grabados, presets de diseño).</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Seccion 3: Recursos y Links de Valor -->
-                <div class="bg-slate-900 text-white rounded-3xl p-8 shadow-md">
+                <!-- Seccion 4: Recursos y Links de Valor -->
+                <div class="bg-slate-900 text-white rounded-3xl p-8 shadow-md overflow-auto">
                     <h3 class="text-xl font-bold text-indigo-300 flex items-center gap-3 mb-4">
-                        <i class="fas fa-link"></i> 3. Recursos Digitales Educativos
+                        <i class="fas fa-link"></i> 4. Recursos Digitales Educativos
                     </h3>
                     <p class="text-slate-400 text-xs mb-6">Explora contenidos clave e información de primera mano en los siguientes recursos externos oficiales:</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -263,7 +317,7 @@
                 </div>
 
                 <!-- SUB-TEST DE TEORÍA: 5 Preguntas -->
-                <div class="bg-gradient-to-tr from-indigo-50 to-indigo-100 rounded-3xl p-8 border border-indigo-200">
+                <div class="bg-gradient-to-tr from-indigo-50 to-indigo-100 rounded-3xl p-8 border border-indigo-200 overflow-auto">
                     <div class="mb-6">
                         <span class="text-xs bg-indigo-600 text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">Mini-Prueba Rápida</span>
                         <h3 class="text-2xl font-black text-indigo-950 mt-2">Valida tus conocimientos teóricos</h3>
@@ -282,16 +336,21 @@
         </div>
 
         <!-- 4. VISTA DE SIMULACIÓN (LABORATORIO INTERACTIVO) -->
-        <div id="simulation-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-5xl mx-auto flex flex-col">
-            <div class="flex justify-between items-center mb-6">
+        <div id="simulation-view" class="hidden min-h-full p-6 md:p-12 fade-in max-w-5xl mx-auto flex flex-col overflow-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <button onclick="navigate('dashboard')" class="text-indigo-600 font-bold text-xs uppercase tracking-wider hover:underline flex items-center gap-2">
                     <i class="fas fa-arrow-left"></i> Salir del Laboratorio
                 </button>
-                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Laboratorio de Startups Activo</span>
+                <div class="flex items-center gap-3">
+                    <span class="bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-xl text-[10px] font-bold text-indigo-800">
+                        <i class="fas fa-chalkboard-teacher mr-1"></i>Docente: Ing. César Godoy Rosero, Mgt.
+                    </span>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Laboratorio de Startups Activo</span>
+                </div>
             </div>
 
             <!-- Paso 1: Selección de Modelo de Negocio -->
-            <div id="sim-step-model" class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex-1 flex flex-col justify-center">
+            <div id="sim-step-model" class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex-1 flex flex-col justify-center overflow-auto">
                 <div class="text-center mb-8">
                     <h3 class="text-2xl font-black text-slate-800">Elige tu Tipo de Emprendimiento Digital</h3>
                     <p class="text-slate-500 text-xs mt-1">Cada modelo de negocio posee dinámicas comerciales, clientes y requerimientos técnicos distintos.</p>
@@ -312,16 +371,16 @@
                         <h4 class="font-bold text-slate-800 uppercase text-sm">Emprendimiento C2C</h4>
                         <p class="text-xs text-slate-500 mt-1 leading-relaxed">Portal abierto de venta e intercambio de sombreros de paja toquilla entre artesanos y coleccionistas.</p>
                     </div>
-                    <div onclick="selectSimModel('Suscripcion')" class="p-6 rounded-2xl border-2 border-slate-100 hover:border-emerald-500 bg-slate-50 hover:bg-emerald-50/20 cursor-pointer transition text-left group">
-                        <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-lg mb-4 group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fas fa-redo"></i></div>
-                        <h4 class="font-bold text-slate-800 uppercase text-sm">Suscripción (Freemium)</h4>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Suscripción recurrente a una academia en línea con herramientas de marketing digital para pymes.</p>
+                    <div onclick="selectSimModel('SocialMedia')" class="p-6 rounded-2xl border-2 border-slate-100 hover:border-emerald-500 bg-slate-50 hover:bg-emerald-50/20 cursor-pointer transition text-left group">
+                        <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-lg mb-4 group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fas fa-hashtag"></i></div>
+                        <h4 class="font-bold text-slate-800 uppercase text-sm">Creador de Contenido & Redes</h4>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Monetización multicanal mediante marcas, afiliados, suscripciones y venta directa.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Pasos del Simulador (Formularios y Decisiones) -->
-            <div id="sim-step-builder" class="hidden bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex-1 flex flex-col justify-between">
+            <div id="sim-step-builder" class="hidden bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex-1 flex flex-col justify-between overflow-auto">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
                     <div>
                         <h4 class="text-lg font-black text-indigo-950" id="sim-running-title">Mi Startup Digital</h4>
@@ -336,11 +395,11 @@
                     <div id="sim-phase-1-content" class="space-y-4">
                         <h5 class="text-sm font-bold text-slate-700 uppercase tracking-wide"><i class="fas fa-signature mr-2 text-indigo-500"></i> Nombre e Identidad</h5>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Nombre Comercial de la Empresa</label>
+                            <label class="block text-xs font-semibold text-slate-500 mb-1" id="sim-label-name">Nombre Comercial de la Empresa</label>
                             <input type="text" id="sim-name-input" class="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 outline-none bg-slate-50 focus:ring-2 focus:ring-indigo-500" placeholder="Ej. EcuaCafé Express, EsmeraldasTech">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Propuesta Única de Valor (PUV)</label>
+                            <label class="block text-xs font-semibold text-slate-500 mb-1" id="sim-label-puv">Propuesta Única de Valor (PUV)</label>
                             <textarea id="sim-puv-input" class="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 outline-none bg-slate-50 focus:ring-2 focus:ring-indigo-500 h-20" placeholder="¿Qué te diferencia y qué ofreces al mercado ecuatoriano?"></textarea>
                         </div>
                     </div>
@@ -351,17 +410,17 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Precio Unitario o Mensual ($ USD)</label>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1" id="sim-label-price">Precio Unitario o Mensual ($ USD)</label>
                                 <input type="range" id="sim-price-range" min="5" max="300" value="45" class="w-full" oninput="document.getElementById('sim-price-val').textContent = this.value">
-                                <p class="text-xs text-indigo-600 font-bold mt-1">Precio sugerido: $<span id="sim-price-val">45</span> USD</p>
+                                <p class="text-xs text-indigo-600 font-bold mt-1">Valor asignado: $<span id="sim-price-val">45</span> USD</p>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Presupuesto diario de Marketing ($ USD)</label>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1" id="sim-label-mkt">Presupuesto diario de Marketing / Producción ($ USD)</label>
                                 <input type="range" id="sim-mkt-range" min="1" max="100" value="15" class="w-full" oninput="document.getElementById('sim-mkt-val').textContent = this.value">
                                 <p class="text-xs text-indigo-600 font-bold mt-1">Presupuesto asignado: $<span id="sim-mkt-val">15</span> USD / día</p>
                             </div>
                         </div>
-                        <div class="bg-indigo-50 p-4 rounded-2xl text-xs text-indigo-900 flex justify-between items-center">
+                        <div class="bg-indigo-50 p-4 rounded-2xl text-xs text-indigo-900 flex justify-between items-center" id="sim-cac-container">
                             <span>Estimación de Costo de Adquisición de Cliente (CAC):</span>
                             <strong class="text-indigo-950 font-black" id="sim-cac-estimate">$5.00 USD</strong>
                         </div>
@@ -369,23 +428,19 @@
 
                     <!-- Logística y Pagos Ecuatorianos -->
                     <div id="sim-phase-3-content" class="hidden space-y-6">
-                        <h5 class="text-sm font-bold text-slate-700 uppercase tracking-wide"><i class="fas fa-credit-card mr-2 text-indigo-500"></i> Integraciones Clave</h5>
+                        <h5 class="text-sm font-bold text-slate-700 uppercase tracking-wide"><i class="fas fa-credit-card mr-2 text-indigo-500"></i> Integraciones Clave e Infraestructura</h5>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Pasarela de Pagos Digital (Ecuador)</label>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1" id="sim-label-payment">Pasarela de Pagos / Vía de Monetización</label>
                                 <select id="sim-payment-select" class="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 outline-none bg-slate-50">
-                                    <option value="kushki">Kushki Pay (Altos Volúmenes de Venta B2B)</option>
-                                    <option value="payphone">Payphone (Facilidad de uso con celular y app)</option>
-                                    <option value="transferencia">Transferencia Bancaria Directa (Bajo Costo pero Manual)</option>
+                                    <!-- Las opciones se actualizan dinámicamente según el modelo -->
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Logística de Despacho e Integración</label>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1" id="sim-label-logistics">Logística de Despacho / Canal de Distribución</label>
                                 <select id="sim-logistics-select" class="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 outline-none bg-slate-50">
-                                    <option value="servientrega">Servientrega (Cobertura Nacional Integral)</option>
-                                    <option value="laar">LAAR Courier (Especialista en Ecommerce y Cobros Contra Entrega)</option>
-                                    <option value="propio">Mensajería Propia (Solo cobertura local de cercanía)</option>
+                                    <!-- Las opciones se actualizan dinámicamente según el modelo -->
                                 </select>
                             </div>
                         </div>
@@ -400,33 +455,33 @@
             </div>
 
             <!-- Paso de Ejecución Directa (Lanzamiento) -->
-            <div id="sim-step-dashboard" class="hidden bg-slate-900 text-white p-8 rounded-3xl shadow-2xl flex-1 flex flex-col justify-between">
+            <div id="sim-step-dashboard" class="hidden bg-slate-900 text-white p-8 rounded-3xl shadow-2xl flex-1 flex flex-col justify-between overflow-auto">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-6">
                     <div>
                         <h4 class="text-xl font-extrabold text-indigo-300 uppercase tracking-wider" id="sim-dash-name">STARTUP DIGITAL</h4>
-                        <p class="text-slate-400 text-xs">Simulador de Tráfico & Conversión en Vivo</p>
+                        <p class="text-slate-400 text-xs" id="sim-dash-subtitle">Simulador de Tráfico & Conversión en Vivo</p>
                     </div>
                     <span class="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider" id="sim-dash-model">B2C</span>
                 </div>
 
                 <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
-                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between relative overflow-hidden">
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between relative overflow-auto">
                         <div>
-                            <span class="text-xs text-slate-400 font-bold uppercase">Tráfico de Usuarios Únicos</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase" id="sim-metric-title-1">Tráfico de Usuarios Únicos</span>
                             <h5 class="text-4xl font-black text-white mt-1" id="sim-metric-traffic">0</h5>
                         </div>
-                        <p class="text-[10px] text-indigo-400 uppercase font-semibold mt-4"><i class="fas fa-cog fa-spin text-emerald-400 mr-2"></i> Leyendo Campañas Digitales</p>
+                        <p class="text-[10px] text-indigo-400 uppercase font-semibold mt-4" id="sim-metric-desc-1"><i class="fas fa-cog fa-spin mr-1"></i> Leyendo Redes</p>
                     </div>
-                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between overflow-auto">
                         <div>
-                            <span class="text-xs text-slate-400 font-bold uppercase">Ventas Exitosas</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase" id="sim-metric-title-2">Ventas Exitosas</span>
                             <h5 class="text-4xl font-black text-emerald-400 mt-1" id="sim-metric-sales">0</h5>
                         </div>
                         <p class="text-[10px] text-emerald-400 uppercase font-semibold mt-4">Tasa de Conversión: <span id="sim-metric-rate">0%</span></p>
                     </div>
-                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between overflow-auto">
                         <div>
-                            <span class="text-xs text-slate-400 font-bold uppercase">Rentabilidad Bruta (ROI)</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase" id="sim-metric-title-3">Rentabilidad Bruta (ROI)</span>
                             <h5 class="text-4xl font-black text-indigo-300 mt-1" id="sim-metric-roi">$0.00</h5>
                         </div>
                         <p class="text-[10px] text-indigo-300 uppercase font-semibold mt-4">Retorno de Inversión Final</p>
@@ -444,25 +499,41 @@
             </div>
         </div>
 
-        <!-- 5. VISTA DE TEST DE NIVEL (20 PREGUNTAS FORMALES) -->
-        <div id="test-view" class="hidden min-h-full p-6 md:p-8 fade-in max-w-3xl mx-auto flex flex-col">
-            <div class="flex justify-between items-center mb-6">
+        <!-- 5. VISTA DE TEST DE NIVEL (20 PREGUNTAS FORMALES CON CONTROLES INMUTABLES) -->
+        <div id="test-view" class="hidden min-h-full p-6 md:p-8 fade-in max-w-3xl mx-auto flex flex-col overflow-auto">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
                 <div>
-                    <span class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full uppercase tracking-wider">Evaluación Oficial Regulada</span>
-                    <h2 class="text-xl md:text-2xl font-black text-slate-800 mt-1">Test Académico de Emprendimiento Digital</h2>
+                    <span class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full uppercase tracking-wider" id="test-difficulty-badge">Evaluación Oficial Regulada</span>
+                    <h2 class="text-xl md:text-2xl font-black text-slate-800 mt-1">Evaluación de Informática aplicada</h2>
+                    <p class="text-slate-500 text-xs mt-0.5"><i class="fas fa-chalkboard-teacher mr-1"></i>Docente: Ing. César Godoy Rosero, Mgt.</p>
                 </div>
-                <div class="text-xs font-extrabold bg-indigo-100 text-indigo-700 px-4 py-2.5 rounded-xl border border-indigo-200">
+                <div class="text-xs font-extrabold bg-indigo-100 text-indigo-700 px-4 py-2.5 rounded-xl border border-indigo-200" id="question-progress-label">
                     Pregunta <span id="q-current">1</span> / 20
                 </div>
             </div>
 
-            <div class="bg-white rounded-3xl shadow-md border border-slate-100 flex-1 flex flex-col overflow-hidden relative">
-                <!-- Barra de Progreso Dinámica -->
+            <!-- Panel de Reloj síncrono del Examen -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4 text-xs font-semibold bg-slate-100 p-3 rounded-2xl border border-slate-200 overflow-auto">
+                <div><i class="fas fa-clock text-indigo-600"></i> Inicio: <span id="test-start-clock" class="font-bold">--:--:--</span></div>
+                <div><i class="fas fa-history text-indigo-600"></i> Hora Actual: <span id="test-current-clock" class="font-bold">--:--:--</span></div>
+                <div class="col-span-2 md:col-span-1 flex items-center justify-between md:justify-end gap-2 text-rose-600">
+                    <span>Límite de Pregunta:</span>
+                    <span id="question-countdown" class="font-black text-sm bg-rose-100 px-2.5 py-0.5 rounded-lg border border-rose-200">30s</span>
+                </div>
+            </div>
+
+            <!-- Alerta Informativa de Transición de Fase -->
+            <div id="rephrasing-banner" class="hidden bg-amber-500 text-white p-4 rounded-2xl text-xs font-bold mb-4 border border-amber-400 text-center flex items-center gap-2 justify-center animate-pulse">
+                <i class="fas fa-redo-alt fa-spin"></i> FASE DE REPLANTEAMIENTO ESTUDIANTIL: Resolviendo preguntas no contestadas con nivel de complejidad académica aumentado.
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-md border border-slate-100 flex-1 flex flex-col overflow-auto relative">
+                <!-- Barra de Progreso Dinámica de Preguntas -->
                 <div class="h-2 w-full bg-slate-100">
                     <div id="test-progress" class="h-full bg-indigo-600 transition-all duration-300" style="width: 5%"></div>
                 </div>
 
-                <div class="p-6 md:p-10 flex-1 flex flex-col justify-center">
+                <div class="p-6 md:p-10 flex-1 flex flex-col justify-center overflow-auto">
                     <h3 id="question-text" class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-snug">
                         <!-- Enunciado de la pregunta -->
                     </h3>
@@ -472,9 +543,9 @@
                     </div>
                 </div>
                 
-                <div class="bg-slate-50 p-6 border-t border-slate-100 flex justify-between items-center">
+                <div class="bg-slate-50 p-6 border-t border-slate-200 flex justify-between items-center overflow-auto">
                     <div class="text-xs text-slate-400">
-                        <i class="fas fa-info-circle"></i> Debe contestar todas las preguntas del test obligatorio. No se permite la cancelación del test activo.
+                        <i class="fas fa-info-circle"></i> Al expirar los 30 segundos, se avanzará de manera automática registrando la pregunta para reevaluación.
                     </div>
                     <button id="next-q-btn" onclick="nextQuestion()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                         Siguiente Pregunta <i class="fas fa-chevron-right ml-1"></i>
@@ -484,35 +555,48 @@
         </div>
 
         <!-- 6. VISTA DE RESULTADOS Y REFUERZO PEDAGÓGICO -->
-        <div id="results-view" class="hidden min-h-full p-6 md:p-12 flex items-center justify-center fade-in bg-slate-100">
-            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl max-w-3xl w-full">
+        <div id="results-view" class="hidden min-h-full p-6 md:p-12 flex items-center justify-center fade-in bg-slate-100 overflow-auto">
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl max-w-3xl w-full overflow-auto">
                 <div id="result-icon" class="text-7xl mb-6 text-center"></div>
                 <h2 class="text-3xl font-black text-slate-800 mb-2 text-center">Resultados de Evaluación</h2>
-                <p class="text-slate-500 text-sm mb-8 text-center" id="result-message"></p>
+                
+                <!-- Profesor Permanente -->
+                <p class="text-center text-xs font-bold text-indigo-950 mb-4 bg-indigo-50 py-2 px-4 rounded-xl border border-indigo-100 inline-block mx-auto w-full max-w-sm">
+                    <i class="fas fa-chalkboard-teacher mr-1"></i> Docente Evaluador: Ing. César Godoy Rosero, Mgt.
+                </p>
+
+                <p class="text-slate-500 text-sm mb-6 text-center" id="result-message"></p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center flex flex-col justify-center">
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center flex flex-col justify-center overflow-auto">
                         <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Tu Nota Final</p>
                         <div class="text-5xl font-black text-indigo-600 mb-2" id="result-score">0 / 10</div>
                         <p class="text-xs font-semibold text-slate-500">Aciertos: <span id="result-correct">0</span> / 20 preguntas</p>
+                        
+                        <!-- Panel de Horas del Reporte -->
+                        <div class="mt-4 pt-4 border-t border-slate-200 text-left text-[11px] text-slate-500 space-y-1">
+                            <div><i class="fas fa-calendar-alt mr-1 text-indigo-500"></i> Fecha: <span id="result-date">--/--/----</span></div>
+                            <div><i class="fas fa-hourglass-start mr-1 text-indigo-500"></i> Hora Inicio: <span id="result-time-start">--:--:--</span></div>
+                            <div><i class="fas fa-hourglass-end mr-1 text-indigo-500"></i> Hora Término: <span id="result-time-end">--:--:--</span></div>
+                        </div>
                     </div>
 
                     <!-- Panel de Descarga del PDF de Rendimiento Académico -->
-                    <div id="pdf-report-container" class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl flex flex-col justify-center items-center text-center">
+                    <div id="pdf-report-container" class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl flex flex-col justify-center items-center text-center overflow-auto">
                         <i class="fas fa-file-pdf text-3xl text-indigo-600 mb-2"></i>
                         <h4 class="text-xs font-bold text-indigo-950 uppercase tracking-wider">Reporte Académico Oficial</h4>
-                        <p class="text-[11px] text-indigo-700/80 mt-1 max-w-[200px] leading-relaxed">Saca una nota mayor a 8 o realiza más de 2 intentos para habilitar tu PDF imprimible.</p>
+                        <p class="text-[11px] text-indigo-700/80 mt-1 max-w-[200px] leading-relaxed font-medium">Saca una nota mayor a 8 o realiza más de 2 intentos para habilitar tu PDF firmado imprimible.</p>
                         <button id="pdf-download-btn" onclick="generateAcademicPDF()" disabled class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition">Descargar Reporte PDF</button>
                     </div>
                 </div>
 
                 <!-- Refuerzo Pedagógico Automatizado -->
-                <div class="bg-amber-50/50 border border-amber-200 rounded-2xl p-6 mb-8">
+                <div class="bg-amber-50/50 border border-amber-200 rounded-2xl p-6 mb-8 overflow-auto">
                     <h4 class="text-sm font-black text-amber-950 flex items-center gap-2 mb-3">
                         <i class="fas fa-chalkboard-teacher"></i> Refuerzo Pedagógico Personalizado
                     </h4>
                     <p class="text-xs text-amber-900/80 mb-4 leading-relaxed">
-                        Analizamos tus respuestas erróneas. Para optimizar tu aprendizaje de cara a un nuevo intento del examen, te sugerimos estudiar detalladamente los siguientes tópicos:
+                        Analizamos tus respuestas erróneas. Para optimizar tu aprendizaje de cara a un nuevo intento del examen (el cual elevará dinámicamente su complejidad técnica), te sugerimos estudiar detalladamente los siguientes tópicos:
                     </p>
                     <ul id="pedagogical-list" class="space-y-2 text-xs text-amber-950/90 list-disc list-inside">
                         <!-- Los ítems del refuerzo se inyectan dinámicamente -->
@@ -529,29 +613,16 @@
     </main>
 
     <script>
-        // --- 0. MEDIDAS DE SEGURIDAD DIGITAL ---
-        
-        // Bloqueo de menú de Clic Derecho
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        // --- PROMESAS DE DISEÑO: Declaración explícita del estado global del sistema ---
+        let currentUser = null;
+        let examAttempts = 0;
 
-        // Bloqueo de accesos de teclado para herramientas de depuración (F12, inspección, ver código fuente)
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123) return false; // F12
-            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) return false; // Ctrl+Shift+I / C / J
-            if (e.ctrlKey && e.keyCode === 85) return false; // Ctrl+U
-        };
-
-        // Trampa de depurador activa: Congela la consola de herramientas de desarrollo
-        setInterval(function() {
-            (function() { return false; }['constructor']('debugger')());
-        }, 100);
-
-        // --- 1. BASE DE DATOS DE ESTUDIANTES (Cédulas Ofuscadas en Base64) ---
+        // --- 1. BASE DE DATOS DE ESTUDIANTES (Cédulas Ofuscadas en Base64 de todos los paralelos 2A a 2H) ---
         const students = [
             // --- ESTUDIANTE DE PRUEBA ---
             { email: "estudiante@prueba.com", cedulaHash: "MDgwMTQ3MTI1NQ==", name: "ESTUDIANTE DE PRUEBA" },
 
-            // --- ESTUDIANTES 2A ---
+            // --- ESTUDIANTES PARALELO 2A ---
             { email: "alarconmosquera8129@sagradocorazon.edu.ec", cedulaHash: "MDg1MDcyOTgxNQ==", name: "ALARCON MOSQUERA EMILY LISBETH" },
             { email: "alcivarmina3519@sagradocorazon.edu.ec", cedulaHash: "MDgwNDM5MzMzOA==", name: "ALCIVAR MINA MIGUEL ISRAEL" },
             { email: "anguloestupinan8099@sagradocorazon.edu.ec", cedulaHash: "MDgwNTQ1MzczNQ==", name: "ANGULO ESTUPIÑAN SARAI ENELISA" },
@@ -572,7 +643,7 @@
             { email: "minarodriguez8464@sagradocorazon.edu.ec", cedulaHash: "MDg1MDU5OTAwMg==", name: "MINA RODRIGUEZ GEOVANNY SAID" },
             { email: "palaciosescobar8125@sagradocorazon.edu.ec", cedulaHash: "MDg1MDcwNjY5OA==", name: "PALACIOS ESCOBAR GEMA DANIESHKA" },
             
-            // --- ESTUDIANTES 2B ---
+            // --- ESTUDIANTES PARALELO 2B ---
             { email: "acurisantos5087@sagradocorazon.edu.ec", cedulaHash: "MDgwNDQ1NzgzNg==", name: "ACURI SANTOS JULIO CESAR" },
             { email: "alvarezpineda8775@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA4MjE5OQ==", name: "ALVAREZ PINEDA ZAHID JARETH" },
             { email: "angulochalar8497@sagradocorazon.edu.ec", cedulaHash: "MTcyOTY2ODY5Nw==", name: "ANGULO CHALAR ROGER" },
@@ -592,17 +663,17 @@
             { email: "montanocifuente8155@sagradocorazon.edu.ec", cedulaHash: "MDg1MDEzNjE3NQ==", name: "MONTAÑO CIFUENTE JEAN CARLOS" },
             { email: "morcilloramirez3099@sagradocorazon.edu.ec", cedulaHash: "MDg1MDIwNjY3Mw==", name: "MORCILLO RAMIREZ ANA CAMILA" },
 
-            // --- ESTUDIANTES 2C ---
+            // --- ESTUDIANTES PARALELO 2C ---
             { email: "alavaortiz8141@sagradocorazon.edu.ec", cedulaHash: "MDg1MDgxMjM0OA==", name: "ALAVA ORTIZ BERTHA ANAHIS" },
             { email: "almeidamoreira8783@sagradocorazon.edu.ec", cedulaHash: "MTM1MDY3MzUzNw==", name: "ALMEIDA MOREIRA XIOMARA RUBY" },
             { email: "arboledaarroyo8146@sagradocorazon.edu.ec", cedulaHash: "MDg1MDU5ODc4MA==", name: "ARBOLEDA ARROYO ANGELICA ADAMARIS" },
-            { email: "arevaloarismendi8100@sagradocorazon.edu.ec", cedulaHash: "MDg1MDI4NzU5MA==", name: "AREVALO ARISMENDI MATHIAS GABRIEL" },
+            { email: "arevaloarismendi8100@sagradocorazon.edu.ec", cedulaHash: "MDg1MDI8NzU5MA==", name: "AREVALO ARISMENDI MATHIAS GABRIEL" },
             { email: "moretavera8475@sagradocorazon.edu.ec", cedulaHash: "MDg1MDg3MDQwMw==", name: "MORETA VERA HILLARY ALEXANDRA" },
             { email: "mosquerapenafiel8337@sagradocorazon.edu.ec", cedulaHash: "MDg1MDIyMDgxNQ==", name: "MOSQUERA PEÑAFIEL DANNAY FIORELLA" },
             { email: "muenteslopez8120@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA3OTA5Ng==", name: "MUENTES LOPEZ BORIS ARIEL" },
             { email: "pallolujano6633@sagradocorazon.edu.ec", cedulaHash: "MDgwNDgyMzE2OQ==", name: "PALLO LUJANO IKER SAMIR" },
 
-            // --- ESTUDIANTES 2D ---
+            // --- ESTUDIANTES PARALELO 2D ---
             { email: "angulochere8130@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA1NDkyNQ==", name: "ANGULO CHERE NIGSON EXTIGSON" },
             { email: "arboledarosero8115@sagradocorazon.edu.ec", cedulaHash: "MDg1MDU4NTc2MQ==", name: "ARBOLEDA ROSERO CRHISTOPHER DOUGLAS" },
             { email: "arismendigonzalez6545@sagradocorazon.edu.ec", cedulaHash: "MDgwNDQ3OTIwMg==", name: "ARISMENDI GONZALEZ AQUILES AZAEL" },
@@ -622,7 +693,7 @@
             { email: "pinargotejama8338@sagradocorazon.edu.ec", cedulaHash: "MDg1MDYyODY4Ng==", name: "PINARGOTE JAMA ISMAEL" },
             { email: "quinterocortez8822@sagradocorazon.edu.ec", cedulaHash: "MTc1MjcwMjA5MA==", name: "QUINTERO CORTEZ THIAGO DIDIER" },
 
-            // --- ESTUDIANTES 2E ---
+            // --- ESTUDIANTES PARALELO 2E ---
             { email: "arevaloparraga7384@sagradocorazon.edu.ec", cedulaHash: "MDg1MDcwNTM5Mw==", name: "AREVALO PARRAGA CRISTHIAN ALEXANDER" },
             { email: "arroyonazareno8104@sagradocorazon.edu.ec", cedulaHash: "MDg1MDYyNzcxMg==", name: "ARROYO NAZARENO RYAN ALBERTO" },
             { email: "avilasaavedra8098@sagradocorazon.edu.ec", cedulaHash: "MDg1MDQwMzAxNQ==", name: "AVILA SAAVEDRA DERECK IVAN" },
@@ -642,10 +713,10 @@
             { email: "padillatenorio7990@sagradocorazon.edu.ec", cedulaHash: "MDg1MDEzMzIxNg==", name: "PADILLA TENORIO LESLIE JANAYRA" },
             { email: "povedatorres8763@sagradocorazon.edu.ec", cedulaHash: "MDg1MDMzNzgxNw==", name: "POVEDA TORRES MATEO OLIVERIO" },
 
-            // --- ESTUDIANTES 2F ---
+            // --- ESTUDIANTES PARALELO 2F ---
             { email: "alcivarmontalvo5546@sagradocorazon.edu.ec", cedulaHash: "MDgwNTIxNTE1OQ==", name: "ALCIVAR MONTALVO IKER MATHIAS" },
             { email: "amayamontesdeoca6983@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA4NzI1NQ==", name: "AMAYA MONTESDEOCA MATEO FABIAN" },
-            { email: "angulosolis6940@sagradocorazon.edu.ec", cedulaHash: "MDgwNDu0NDEwNA==", name: "ANGULO SOLIS DERECK MATHEO" },
+            { email: "angulosolis6940@sagradocorazon.edu.ec", cedulaHash: "MDgwNDU0NDEwNA==", name: "ANGULO SOLIS DERECK MATHEO" },
             { email: "arroyomonrroy8460@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA0Mjk5NQ==", name: "ARROYO MONRROY DIDIER ANDRES" },
             { email: "arroyovaldez8151@sagradocorazon.edu.ec", cedulaHash: "MDg1MDYzNTA1Mw==", name: "ARROYO VALDEZ JOSTIN BRYAN" },
             { email: "ayoviramos8162@sagradocorazon.edu.ec", cedulaHash: "MDg1MDI2NTM1Ng==", name: "AYOVI RAMOS ETHAN IBRAIM" },
@@ -662,13 +733,14 @@
             { email: "moncayoalvarez8143@sagradocorazon.edu.ec", cedulaHash: "MDg1MDUyMTI1Mw==", name: "MONCAYO ALVAREZ DANNA JULISSA" },
             { email: "montezumaquinonez7715@sagradocorazon.edu.ec", cedulaHash: "MDg1MDI5NTIwNQ==", name: "MONTEZUMA QUIÑONEZ BELLANIRE KATRINA" },
 
-            // --- ESTUDIANTES 2G ---
+            // --- ESTUDIANTES PARALELO 2G ---
             { email: "altafuyaavila8102@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA1NTI4Ng==", name: "ALTAFUYA AVILA ALVARO DAVID" },
+            { email: "altafuyaavila8102@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA5NTI4Ng==", name: "ALTAFUYA AVILA ALVARO DAVID (ALT)" },
             { email: "angulomedranda8132@sagradocorazon.edu.ec", cedulaHash: "MDgwNDQ5NDc3MQ==", name: "ANGULO MEDRANDA LUIS ALFREDO" },
             { email: "ardilagaspar8362@sagradocorazon.edu.ec", cedulaHash: "MDg1MDE0NDc3NQ==", name: "ARDILA GASPAR BRIANNA NAYLI" },
             { email: "bonevilla8113@sagradocorazon.edu.ec", cedulaHash: "MDg1MDczMzIyMQ==", name: "BONE VILLA TYSON RAFAEL" },
             { email: "cadenabarahona7739@sagradocorazon.edu.ec", cedulaHash: "MDg1MDIyNTY5OQ==", name: "CADENA BARAHONA MAYTTE RAFAELA" },
-            { email: "casquetemontano8811@sagradocorazon.edu.ec", cedulaHash: "MDg1MDg4MzY0Ng==", name: "CASQUETE MONTAÑO DEIMY JAIR" },
+            { email: "casquetemontano8811@sagradocorazon.edu.ec", cedulaHash: "MDg1MDg3ODY0Ng==", name: "CASQUETE MONTAÑO DEIMY JAIR" },
             { email: "castillocastillo5468@sagradocorazon.edu.ec", cedulaHash: "MDg1MDMyMDc1NQ==", name: "CASTILLO CASTILLO BRYAN ISAAC" },
             { email: "cedenomarin8467@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA0ODYxMg==", name: "CEDEÑO MARIN RENATA ABIGAIL" },
             { email: "chinevervega8768@sagradocorazon.edu.ec", cedulaHash: "RTAwMzE2NTQzMA==", name: "CHINEVER VEGA EDGAR YERICO" },
@@ -682,7 +754,7 @@
             { email: "ortizgiler5952@sagradocorazon.edu.ec", cedulaHash: "MDgwNDQzOTI2Mw==", name: "ORTIZ GILER CARLOS JESÚS" },
             { email: "osoriobone3103@sagradocorazon.edu.ec", cedulaHash: "MDgwNDM3MzIzMQ==", name: "OSORIO BONE KAINA VALESKA" },
 
-            // --- ESTUDIANTES 2H ---
+            // --- ESTUDIANTES PARALELO 2H ---
             { email: "ardilaquizhpe8152@sagradocorazon.edu.ec", cedulaHash: "MDg1MDIxNjg1NA==", name: "ARDILA QUIZHPE BRIANNA FRANCHESKA" },
             { email: "bonebecerra8367@sagradocorazon.edu.ec", cedulaHash: "MDg1MDAzNjQ3Ng==", name: "BONE BECERRA JASSLINE DEEBONY" },
             { email: "bonegarces8145@sagradocorazon.edu.ec", cedulaHash: "MDgwNDQ1NjI3NQ==", name: "BONE GARCES EDDY JARIEL" },
@@ -699,20 +771,18 @@
             { email: "montalvoandrade4966@sagradocorazon.edu.ec", cedulaHash: "MDg1MDEyOTQ3OQ==", name: "MONTALVO ANDRADE ADRIAN DANTE" },
             { email: "moreirabautista8176@sagradocorazon.edu.ec", cedulaHash: "MDg1MDkyMTYwMg==", name: "MOREIRA BAUTISTA LINIKER VICENTE" },
             { email: "motalaconcha8131@sagradocorazon.edu.ec", cedulaHash: "MTg2NDg1ODY4", name: "MOTA LA CONCHA RONNY JOSE ANTONIO" },
+            { email: "motalaconcha8131@sagradocorazon.edu.ec", cedulaHash: "MDE4NjQ4NTg2OA==", name: "MOTA LA CONCHA RONNY JOSE ANTONIO (ALT)" },
             { email: "olivesaveiga5866@sagradocorazon.edu.ec", cedulaHash: "MDgwNDQzNDQxMw==", name: "OLIVES AVEIGA ANAHI FERNANDA" },
             { email: "orellanajaramillo6980@sagradocorazon.edu.ec", cedulaHash: "MDg1MDMxMjI4MQ==", name: "ORELLANA JARAMILLO LLUNAN KINORA" }
         ];
 
-        let currentUser = null;
-        let examAttempts = 0;
-
         // --- 2. TEORÍA: MINI-PRUEBA DE VALIDACIÓN DE 5 PREGUNTAS ---
         const theoryQuiz = [
             {
-                q: "¿Qué ventaja tiene el negocio digital sobre el tradicional?",
+                q: "¿Qué ventaja tiene el negocio digital sobre el tradicional en Informática Aplicada?",
                 options: [
                     "Requiere mayor personal de almacenamiento físico.",
-                    "Ofrece menores costos operativos y mayor velocidad de lanzamiento al mercado.",
+                    "Ofrece menores costos operativos, mayor velocidad de lanzamiento al mercado y escalabilidad de datos.",
                     "Depende completamente de tiendas departamentales físicas locales.",
                     "Evita el cobro de comisiones en pasarelas de pago."
                 ],
@@ -729,7 +799,7 @@
                 answer: 1
             },
             {
-                q: "¿Qué componente de la tienda online se encarga del almacenamiento y despacho físico?",
+                q: "¿Qué componente de la tienda online se encarga de la gestión automatizada del inventario y del despacho físico de las mercancías?",
                 options: [
                     "Catálogo de Productos", 
                     "Pasarela de Pago", 
@@ -739,12 +809,12 @@
                 answer: 2
             },
             {
-                q: "¿Qué es el Producto Mínimo Viable (MVP)?",
+                q: "¿Qué es el Producto Mínimo Viable (MVP) y para qué sirve en redes sociales?",
                 options: [
-                    "El producto más costoso de la empresa.",
-                    "La versión con características fundamentales para probar el mercado real rápidamente.",
-                    "Un prototipo de diseño que no se vende.",
-                    "La fase de postventa logística."
+                    "El producto más costoso para pauta publicitaria.",
+                    "La versión con características fundamentales para probar el mercado real y recabar feedback rápidamente.",
+                    "Un prototipo de diseño gráfico no funcional.",
+                    "La fase final de la logística de distribución de última milla."
                 ],
                 answer: 1
             },
@@ -767,7 +837,7 @@
             container.innerHTML = '';
             theoryQuiz.forEach((item, idx) => {
                 const questionDiv = document.createElement('div');
-                questionDiv.className = 'bg-white p-5 rounded-2xl shadow-sm border border-slate-100';
+                questionDiv.className = 'bg-white p-5 rounded-2xl shadow-sm border border-slate-100 overflow-auto';
                 questionDiv.innerHTML = `
                     <h4 class="font-bold text-sm text-slate-800 mb-3">${idx+1}. ${item.q}</h4>
                     <div class="space-y-2" id="theory-opt-group-${idx}"></div>
@@ -805,21 +875,84 @@
             }
         }
 
-        // --- 3. LABORATORIOS DE SIMULACIÓN INTERACTIVOS ---
+        // --- 3. LABORATORIOS DE SIMULACIÓN INTERACTIVOS (B2C, B2B, C2C, SOCIAL MEDIA) ---
         let simState = {
-            model: '',
-            name: '',
-            puv: '',
-            price: 45,
-            mkt: 15,
-            payment: 'kushki',
-            logistics: 'servientrega',
-            phase: 1
+            model: '', name: '', puv: '', price: 45, mkt: 15, payment: 'kushki', logistics: 'servientrega', phase: 1
         };
 
         function selectSimModel(modelType) {
             simState.model = modelType;
             simState.phase = 1;
+            
+            // Personalización de etiquetas del formulario basado en modelo y redes sociales
+            if (modelType === 'SocialMedia') {
+                document.getElementById('sim-label-name').textContent = "Nombre de tu Canal / Marca Personal";
+                document.getElementById('sim-label-puv').textContent = "Nicho y Línea Editorial (Ej: Tecnología, Gastronomía, Viajes por Ecuador)";
+                document.getElementById('sim-name-input').placeholder = "Ej: TechEc, CocinaConSabor";
+                document.getElementById('sim-puv-input').placeholder = "Creamos reviews y tutoriales cortos en formato Reels/TikTok para conectar marcas con pymes ecuatorianas.";
+                
+                document.getElementById('sim-label-price').textContent = "Costo de Suscripción Premium / Tarifa por Post ($ USD)";
+                document.getElementById('sim-label-mkt').textContent = "Presupuesto Diario de Producción y Pauta ($ USD)";
+                document.getElementById('sim-price-range').min = "5";
+                document.getElementById('sim-price-range').max = "500";
+                document.getElementById('sim-price-range').value = "25";
+                document.getElementById('sim-price-val').textContent = "25";
+                
+                // Cargar selects con datos de monetización modernos
+                const paymentSelect = document.getElementById('sim-payment-select');
+                paymentSelect.innerHTML = `
+                    <option value="twitch_subs">Suscripciones recurrentes (Patreon, Twitch Subs)</option>
+                    <option value="brand_deals">Patrocinio directo de marcas ecuatorianas (Sponsor deals)</option>
+                    <option value="affiliate_network">Red de Afiliados (Amazon Associates, ClickBank, PayPhone links)</option>
+                    <option value="live_shopping">Ventas Flash in-app (TikTok Shop, Instagram Commerce)</option>
+                `;
+                
+                const logisticsSelect = document.getElementById('sim-logistics-select');
+                logisticsSelect.innerHTML = `
+                    <option value="beacons">Enlace en Bio unificado (Beacons, Linktree, Koji)</option>
+                    <option value="correo">Boletín informativo premium de e-mail (Substack)</option>
+                    <option value="entregas">Envío físico de merchandising (Servientrega local)</option>
+                `;
+                
+                // Métricas dinámicas en el dashboard de simulación
+                document.getElementById('sim-metric-title-1').textContent = "Alcance / Reproducciones Totales";
+                document.getElementById('sim-metric-desc-1').innerHTML = `<i class="fas fa-signal text-emerald-400 mr-1"></i> Engagement dinámico de Redes`;
+                document.getElementById('sim-metric-title-2').textContent = "Acciones de Monetización (Clicks / Conversión)";
+                document.getElementById('sim-metric-title-3').textContent = "Ingresos de Canal (ROI Neto)";
+            } else {
+                // Configuración tradicional para B2C, B2B, C2C
+                document.getElementById('sim-label-name').textContent = "Nombre Comercial de la Empresa";
+                document.getElementById('sim-label-puv').textContent = "Propuesta Única de Valor (PUV)";
+                document.getElementById('sim-name-input').placeholder = "Ej: EcuaCafé Express, EsmeraldasTech";
+                document.getElementById('sim-puv-input').placeholder = "¿Qué te diferencia y qué ofreces al mercado ecuatoriano?";
+                
+                document.getElementById('sim-label-price').textContent = "Precio Unitario o Mensual ($ USD)";
+                document.getElementById('sim-label-mkt').textContent = "Presupuesto Diario de Marketing ($ USD)";
+                document.getElementById('sim-price-range').min = "5";
+                document.getElementById('sim-price-range').max = "300";
+                document.getElementById('sim-price-range').value = "45";
+                document.getElementById('sim-price-val').textContent = "45";
+                
+                const paymentSelect = document.getElementById('sim-payment-select');
+                paymentSelect.innerHTML = `
+                    <option value="kushki">Kushki Pay (Altos Volúmenes de Venta B2B)</option>
+                    <option value="payphone">Payphone (Facilidad de uso con celular y app)</option>
+                    <option value="transferencia">Transferencia Bancaria Directa (Bajo Costo pero Manual)</option>
+                `;
+                
+                const logisticsSelect = document.getElementById('sim-logistics-select');
+                logisticsSelect.innerHTML = `
+                    <option value="servientrega">Servientrega (Cobertura Nacional Integral)</option>
+                    <option value="laar">LAAR Courier (Especialista en Ecommerce y Cobros Contra Entrega)</option>
+                    <option value="propio">Mensajería Propia (Solo cobertura local de cercanía)</option>
+                `;
+                
+                document.getElementById('sim-metric-title-1').textContent = "Tráfico de Usuarios Únicos";
+                document.getElementById('sim-metric-desc-1').innerHTML = `<i class="fas fa-spinner fa-spin text-indigo-400 mr-1"></i> Leyendo Campañas Digitales`;
+                document.getElementById('sim-metric-title-2').textContent = "Ventas Exitosas";
+                document.getElementById('sim-metric-title-3').textContent = "Rentabilidad Bruta (ROI)";
+            }
+
             document.getElementById('sim-step-model').classList.add('hidden');
             document.getElementById('sim-step-builder').classList.remove('hidden');
             document.getElementById('sim-phase-1-content').classList.remove('hidden');
@@ -863,7 +996,7 @@
                 document.getElementById('sim-step-builder').classList.add('hidden');
                 document.getElementById('sim-step-dashboard').classList.remove('hidden');
                 document.getElementById('sim-dash-name').textContent = simState.name.toUpperCase();
-                document.getElementById('sim-dash-model').textContent = simState.model;
+                document.getElementById('sim-dash-model').textContent = simState.model === 'SocialMedia' ? 'SOCIAL INFLUENCE' : simState.model;
                 resetSimExecutionMetrics();
             }
         }
@@ -896,41 +1029,53 @@
 
         function startSimLive() {
             document.getElementById('sim-start-btn').classList.add('hidden');
-            let traffic = 0;
-            let sales = 0;
-            const targetTraffic = Math.floor(simState.mkt * 3.5 + Math.random() * 80);
+            let traffic = 0; let sales = 0;
             
-            // Tasa de conversión base de mercado
-            let baseRate = 0.022; 
+            // Para creadores, el tráfico representa alcance de vistas
+            const targetTraffic = simState.model === 'SocialMedia' 
+                ? Math.floor(simState.mkt * 25 + Math.random() * 500) 
+                : Math.floor(simState.mkt * 3.5 + Math.random() * 80);
             
-            // Impacto de la Pasarela de Pago
-            if (simState.payment === 'payphone') baseRate += 0.016; 
-            if (simState.payment === 'kushki' && simState.model === 'B2B') baseRate += 0.025; 
-            if (simState.payment === 'transferencia') baseRate -= 0.009; 
+            let baseRate = simState.model === 'SocialMedia' ? 0.045 : 0.022; // Creadores de contenido suelen tener mejor engagement rate de base
+            
+            // Lógica de mitigación de conversiones
+            if (simState.model === 'SocialMedia') {
+                if (simState.payment === 'twitch_subs') baseRate += 0.012;
+                if (simState.payment === 'brand_deals') baseRate += 0.022;
+                if (simState.payment === 'affiliate_network') baseRate -= 0.010; // Red de afiliados suele tener menos conversión por redirección externa
+                
+                if (simState.logistics === 'beacons') baseRate += 0.015; // Unificado reduce fricción
+                if (simState.logistics === 'correo') baseRate += 0.008;
+            } else {
+                if (simState.payment === 'payphone') baseRate += 0.016; 
+                if (simState.payment === 'kushki' && simState.model === 'B2B') baseRate += 0.025; 
+                if (simState.payment === 'transferencia') baseRate -= 0.009; 
+                if (simState.logistics === 'servientrega') baseRate += 0.011;
+                if (simState.logistics === 'laar') baseRate += 0.015;
+            }
 
-            // Impacto de la Operación Logística
-            if (simState.logistics === 'servientrega') baseRate += 0.011;
-            if (simState.logistics === 'laar') baseRate += 0.015; // Logística "Contra entrega" aumenta la conversión en Ecuador
-
-            // Elasticidad de Precio
             if (simState.price > 180) baseRate -= 0.007;
             if (simState.price < 35) baseRate += 0.01;
-
             if (baseRate < 0.006) baseRate = 0.006;
 
             const logElement = document.getElementById('sim-dash-log');
-            logElement.innerHTML = `<i class="fas fa-cog fa-spin text-emerald-400 mr-2"></i> Levantando servidores virtuales y simulando tráfico de red social...`;
+            logElement.innerHTML = simState.model === 'SocialMedia' 
+                ? `<i class="fas fa-share-nodes fa-spin text-emerald-400 mr-2"></i> Propagando algoritmos y estimando visualizaciones en redes sociales...`
+                : `<i class="fas fa-cog fa-spin text-emerald-400 mr-2"></i> Levantando servidores virtuales y simulando tráfico de red social...`;
 
             let interval = setInterval(() => {
-                traffic += Math.floor(Math.random() * 9) + 3;
+                traffic += simState.model === 'SocialMedia' ? Math.floor(Math.random() * 35) + 12 : Math.floor(Math.random() * 9) + 3;
                 if (traffic >= targetTraffic) {
                     traffic = targetTraffic;
                     clearInterval(interval);
-                    
                     sales = Math.floor(traffic * baseRate);
                     const conversionRateReal = ((sales / traffic) * 100).toFixed(1);
                     const totalRevenue = sales * simState.price;
-                    const totalCost = (simState.mkt * 8) + (sales * (simState.price * 0.35));
+                    // Los creadores no tienen tanto costo de envío sino de producción
+                    const totalCost = simState.model === 'SocialMedia' 
+                        ? (simState.mkt * 6) + (sales * (simState.price * 0.15)) 
+                        : (simState.mkt * 8) + (sales * (simState.price * 0.35));
+                    
                     const roi = totalRevenue - totalCost;
 
                     document.getElementById('sim-metric-traffic').textContent = traffic;
@@ -941,181 +1086,266 @@
 
                     let feedbackText = `<strong>Simulación Finalizada:</strong> Lanzamiento completado con éxito. `;
                     if (roi > 0) {
-                        feedbackText += `¡Tu startup digital es rentable! Obtuviste un beneficio positivo de $${roi.toFixed(2)} USD. Excelente calibración de marketing y pasarelas de pago ecuatorianas.`;
+                        feedbackText += simState.model === 'SocialMedia'
+                            ? `¡Tu marca personal es un éxito rotundo! Lograste monetizar un ROI neto de $${roi.toFixed(2)} USD. Excelente uso de canales ecuatorianos e integración semántica de afiliados.`
+                            : `¡Tu startup digital es rentable! Obtuviste un beneficio positivo de $${roi.toFixed(2)} USD. Excelente calibración de marketing y pasarelas de pago ecuatorianas.`;
                     } else {
-                        feedbackText += `Tus gastos operativos ($${totalCost.toFixed(2)} USD) superaron las ventas brutas ($${totalRevenue.toFixed(2)} USD). Intenta ajustar el precio o cambiar a un operador logístico más eficiente.`;
+                        feedbackText += `Tus gastos operativos ($${totalCost.toFixed(2)} USD) superaron las ventas brutas ($${totalRevenue.toFixed(2)} USD). Intenta ajustar el precio o cambiar a un operador logístico más de vanguardia.`;
                     }
                     logElement.innerHTML = `<i class="fas fa-check-double text-emerald-500 mr-2"></i> ${feedbackText}`;
                     document.getElementById('sim-close-btn').classList.remove('hidden');
                 } else {
                     sales = Math.floor(traffic * baseRate);
-                    const currentROI = (sales * simState.price) - ((simState.mkt * 8) + (sales * (simState.price * 0.35)));
+                    const currentCost = simState.model === 'SocialMedia' 
+                        ? (simState.mkt * 6) + (sales * (simState.price * 0.15)) 
+                        : (simState.mkt * 8) + (sales * (simState.price * 0.35));
+                    const currentROI = (sales * simState.price) - currentCost;
                     document.getElementById('sim-metric-traffic').textContent = traffic;
                     document.getElementById('sim-metric-sales').textContent = sales;
                     document.getElementById('sim-metric-rate').textContent = ((sales / traffic) * 100 || 0).toFixed(1) + "%";
                     document.getElementById('sim-metric-roi').textContent = "$" + currentROI.toFixed(2);
                 }
-            }, 50);
+            }, 30);
         }
 
-        // --- 4. EXAMEN ACADÉMICO REGULADO DE 20 PREGUNTAS ---
+        // --- 4. EXAMEN ACADÉMICO REGULADO DE 20 PREGUNTAS (ESTRUCTURA DE DOBLE DIFICULTAD) ---
         const quizQuestions = [
             {
-                q: "¿Qué define primariamente la naturaleza y operaciones de un negocio digital en la actualidad?",
-                options: [
+                q_easy: "¿Qué define primariamente la naturaleza y operaciones de un negocio digital en la actualidad?",
+                q_hard: "¿Cuál es el núcleo ontológico que diferencia la arquitectura transaccional de un ecosistema de negocios digital de uno puramente físico convencional?",
+                options_easy: [
                     "La adquisición únicamente de sistemas computacionales locales de escritorio.",
                     "La realización de transacciones, ofertas y operaciones basadas en tecnologías de la información y conectividad global.",
                     "La creación obligatoria de perfiles exclusivamente en redes sociales de entretenimiento.",
                     "La venta de hardware de telecomunicaciones de alta potencia física."
                 ],
+                options_hard: [
+                    "La adquisición indiscriminada de mainframes locales de procesamiento por lotes sin integración telemática.",
+                    "La descentralización de activos de infraestructura local a favor de la virtualización de operaciones e interconectividad síncrona/asíncrona global.",
+                    "El despliegue de plataformas de redes sociales orientadas exclusivamente al branding de consumo pasivo.",
+                    "La manufactura y distribución de terminales físicas y hardware de enrutamiento de red de área local."
+                ],
                 answer: 1,
-                unit: "Fundamentos y Definición de Negocio Digital"
+                unit: "Fundamentos de Negocio Digital"
             },
             {
-                q: "Si la marca 'Tipti' en Ecuador vende víveres de primera necesidad directamente al usuario final a través de su software, representa un modelo de:",
-                options: ["Modelo C2C", "Modelo B2B", "Modelo B2C (Business to Consumer)", "Modelo C2B"],
+                q_easy: "Si la marca 'Tipti' en Ecuador vende víveres de primera necesidad directamente al usuario final a través de su software, representa un modelo de:",
+                q_hard: "Analizando la cadena de valor de la plataforma ecuatoriana Tipti, ¿bajo qué arquitectura de desintermediación de mercado opera al conectar comercios con consumidores directos?",
+                options_easy: ["Modelo C2C", "Modelo B2B", "Modelo B2C (Business to Consumer)", "Modelo C2B"],
+                options_hard: ["Modelo transaccional C2C", "Modelo de provisión industrial B2B", "Modelo de integración directa Business to Consumer (B2C)", "Modelo agregador Consumer to Business"],
                 answer: 2,
                 unit: "Modelos de Comercio Electrónico"
             },
             {
-                q: "El gigante regional 'MercadoLibre' permite transacciones de compra y venta directas entre consumidores ecuatorianos. Este modelo es:",
-                options: ["Modelo B2C directo", "Marketplace C2C (Consumer to Consumer)", "Modelo B2B", "Suscripción Premium"],
+                q_easy: "El gigante regional 'MercadoLibre' permite transacciones de compra y venta directas entre consumidores ecuatorianos. Este modelo es:",
+                q_hard: "Desde la perspectiva de los flujos de mercado y desintermediación, ¿en qué categoría clasifica una transacción directa entre usuarios autónomos gestionada de forma segura por MercadoLibre?",
+                options_easy: ["Modelo B2C directo", "Marketplace C2C (Consumer to Consumer)", "Modelo B2B", "Suscripción Premium"],
+                options_hard: ["Estructura lineal unilateral B2C", "Marketplace de intermediación Consumer to Consumer (C2C)", "Ecosistema de provisión vertical B2B", "Modelo de membresía recurrente"],
                 answer: 1,
                 unit: "Modelos de Comercio Electrónico"
             },
             {
-                q: "Un diseñador ecuatoriano ofrece sus servicios independientes de diseño de interfaces web a agencias mediante su portafolio online. Esto es un ejemplo de:",
-                options: ["Modelo C2B (Consumer to Business)", "Modelo B2C", "Modelo C2C masivo", "Modelo B2B corporativo"],
+                q_easy: "Un diseñador ecuatoriano ofrece sus servicios independientes de diseño de interfaces web a agencias mediante su portafolio online. Esto es un ejemplo de:",
+                q_hard: "Cuando un profesional técnico independiente del Ecuador comercializa directamente activos intelectuales o servicios digitales a corporaciones mediante canales web, ¿qué tipología comercial ejecuta?",
+                options_easy: ["Modelo C2B (Consumer to Business)", "Modelo B2C", "Modelo C2C masivo", "Modelo B2B corporativo"],
+                options_hard: ["Modelo comercial de valor ascendente Consumer to Business (C2B)", "Arquitectura transaccional de consumo directo B2C", "Ecosistema de intermediación horizontal C2C", "Provisión integrada corporativa B2B"],
                 answer: 0,
                 unit: "Modelos de Comercio Electrónico"
             },
             {
-                q: "¿Qué componente crítico de un comercio electrónico se encarga de agrupar y ordenar el inventario de compra temporal del usuario antes de pasar al pago?",
-                options: ["El catálogo dinámico", "La pasarela de encriptación", "El carrito de compras", "El despacho y transporte físico"],
+                q_easy: "¿Qué componente crítico de un comercio electrónico se encarga de agrupar y ordenar el inventario de compra temporal del usuario antes de pasar al pago?",
+                q_hard: "¿Qué subsistema de software de comercio electrónico es responsable de persistir el estado de la intención de compra multi-artículo y calcular dinámicamente impuestos y tarifas antes del checkout?",
+                options_easy: ["El catálogo dinámico", "La pasarela de encriptación", "El carrito de compras", "El despacho y transporte físico"],
+                options_hard: ["La base de datos de persistencia del catálogo", "El protocolo SSL de la pasarela cifrada", "El módulo del carrito de compras integrado", "El API de despacho y tracking logístico"],
                 answer: 2,
                 unit: "Componentes Clave de una Tienda en Línea"
             },
             {
-                q: "La plataforma Spotify ofrece reproducción musical básica gratuita con publicidad, pero cobra mensualidad por sonido premium sin interrupción. Esto es:",
-                options: ["Suscripción clásica", "Modelo Freemium", "Marketing de Afiliados", "Dropshipping internacional"],
+                q_easy: "La plataforma Spotify ofrece reproducción musical básica gratuita con publicidad, pero cobra mensualidad por sonido premium sin interrupción. Esto es:",
+                q_hard: "Desde el punto de vista de la monetización de software y retención de cohortes de usuarios, ¿cómo se clasifica la estrategia híbrida de Spotify?",
+                options_easy: ["Suscripción clásica", "Modelo Freemium", "Marketing de Afiliados", "Dropshipping internacional"],
+                options_hard: ["Suscripción directa cerrada sin periodos de prueba", "Estrategia de monetización híbrida Freemium", "Esquema transaccional de marketing de afiliados", "Modelo logístico desmaterializado dropshipping"],
                 answer: 1,
                 unit: "Modelos de Comercio Electrónico"
             },
             {
-                q: "¿Cuál es una ventaja operativa directa y crucial del emprendimiento digital frente al comercio físico tradicional?",
-                options: [
+                q_easy: "¿Cuál es una ventaja operativa directa y crucial del emprendimiento digital frente al comercio físico tradicional?",
+                q_hard: "En Informática Aplicada, ¿qué factor de eficiencia estructural reduce sustancialmente el punto de equilibrio financiero de una tienda online frente a un local comercial tradicional?",
+                options_easy: [
                     "Disminución drástica de los costos fijos por omitir la renta de infraestructura física permanente.",
                     "Mayor necesidad de contratación masiva de cajeros.",
                     "Eliminación absoluta de cualquier pago de impuestos.",
                     "Mayor necesidad de almacenar físicamente todo tipo de mercancía."
                 ],
+                options_hard: [
+                    "La optimización drástica de los costos de capital (CapEx) y operativos (OpEx) debido a la virtualización locativa de la empresa.",
+                    "La multiplicación intensiva de recursos humanos operativos y cajeros físicos.",
+                    "La exención fiscal total de aranceles tributarios locales.",
+                    "La obligatoriedad de sostener inventario local en cada nodo de venta física."
+                ],
                 answer: 0,
-                unit: "Fundamentos y Definición de Negocio Digital"
+                unit: "Fundamentos de Negocio Digital"
             },
             {
-                q: "¿Qué concepto describe a una gran plataforma digital multi-vendedor que unifica la oferta de miles de comercios para el cliente final (ej. Amazon)?",
-                options: ["Tienda monomarca", "Marketplace", "SaaS corporativo", "Ecosistema C2B"],
+                q_easy: "¿Qué concepto describe a una gran plataforma digital multi-vendedor que unifica la oferta de miles de comercios para el cliente final (ej. Amazon)?",
+                q_hard: "Estructuralmente, ¿cómo se denomina el ecosistema agregador de oferta distribuida que permite la concurrencia de múltiples oferentes independientes bajo un mismo motor de checkout unificado?",
+                options_easy: ["Tienda monomarca", "Marketplace", "SaaS corporativo", "Ecosistema C2B"],
+                options_hard: ["Catálogo propietario monomarca", "Plataforma transaccional de tipo Marketplace", "Software as a Service (SaaS) corporativo", "Red descentralizada de valor ascendente C2B"],
                 answer: 1,
                 unit: "Modelos de Comercio Electrónico"
             },
             {
-                q: "¿Qué componente de una tienda virtual garantiza la seguridad de datos bancarios con protocolos de encriptación (como los certificados SSL)?",
-                options: ["La pasarela de pago y pasaporte seguro", "La logística y envío", "El carrito de compras", "La base de datos del catálogo"],
+                q_easy: "¿Qué componente de una tienda virtual garantiza la seguridad de datos bancarios con protocolos de encriptación (como los certificados SSL)?",
+                q_hard: "Qué elemento de la arquitectura de seguridad del e-commerce implementa protocolos TLS/SSL para asegurar el cifrado de datos simétricos durante la transmisión transaccional de fondos?",
+                options_easy: ["La pasarela de pago y pasaporte seguro", "La logística y envío", "El carrito de compras", "La base de datos del catálogo"],
+                options_hard: ["La pasarela de pago segura con tokenización de credenciales", "El software intermedio de tracking de la empresa transportista", "El archivo temporal de persistencia local del carrito de compras", "La tabla de relaciones del catálogo dinámico de productos"],
                 answer: 0,
                 unit: "Componentes Clave de una Tienda en Línea"
             },
             {
-                q: "En el mundo tecnológico de las startups, la 'Escalabilidad' se define como la capacidad de:",
-                options: [
+                q_easy: "En el mundo tecnológico de las startups, la 'Escalabilidad' se define como la capacidad de:",
+                q_hard: "Desde la perspectiva microeconómica aplicada a las startups tecnológicas, ¿cuál es la definición precisa del principio de Escalabilidad operativa?",
+                options_easy: [
                     "Vender a nivel local de forma progresiva.",
                     "Multiplicar los ingresos exponencialmente sin que los costos de operación aumenten en la misma proporción.",
                     "Aumentar el número de sucursales físicas cada año.",
                     "Disminuir la velocidad de lanzamiento en el mercado."
                 ],
+                options_hard: [
+                    "La expansión territorial de puntos de venta mediante un modelo lineal de adquisición inmobiliaria.",
+                    "La capacidad del ecosistema de incrementar sus ingresos de manera exponencial manteniendo un crecimiento de costos marginales cuasi-lineal.",
+                    "La diversificación corporativa mediante fusiones de holdings tradicionales.",
+                    "El retardo estratégico de la velocidad de inserción en mercados extranjeros."
+                ],
                 answer: 1,
                 unit: "Conceptos Avanzados de Crecimiento"
             },
             {
-                q: "¿Qué es un MVP (Producto Mínimo Viable) en la strategy de creación de un negocio digital?",
-                options: [
+                q_easy: "¿Qué es un MVP (Producto Mínimo Viable) en la estrategia de creación de un negocio digital?",
+                q_hard: "¿Cuál es el propósito heurístico primario del desarrollo de un Producto Mínimo Viable (MVP) según las metodologías ágiles de validación empresarial?",
+                options_easy: [
                     "El producto más vendido a lo largo del año.",
                     "La versión simplificada de un producto con funcionalidades esenciales para probar viabilidad real en mercado.",
                     "Un prototipo de diseño que no se vende a clientes.",
                     "El diseño del logotipo básico empresarial."
                 ],
+                options_hard: [
+                    "La optimización de márgenes unitarios del SKU más vendido de la compañía.",
+                    "El despliegue de una iteración de software funcional mínima orientada a recolectar aprendizaje validado y feedback empírico del mercado real.",
+                    "Un esquema conceptual inoperativo diseñado exclusivamente para rondas de capital semilla.",
+                    "La versión inicial del isotipo y manual de identidad corporativa de la marca."
+                ],
                 answer: 1,
                 unit: "Conceptos Avanzados de Crecimiento"
             },
             {
-                q: "El costo de marketing total invertido para capturar y cerrar una venta con un nuevo comprador recurrente se denomina:",
-                options: ["Costo de Adquisición de Cliente (CAC)", "Flujo de caja total", "ROI promedio", "LTV (Lifetime Value)"],
+                q_easy: "El costo de marketing total invertido para capturar y cerrar una venta con un nuevo comprador recurrente se denomina:",
+                q_hard: "Si divides el costo consolidado de las campañas de adquisición de tráfico y pauta publicitaria de un mes para el número de usuarios que realizaron su primera transacción en el e-commerce, obtienes el indicador denominado:",
+                options_easy: ["Costo de Adquisición de Cliente (CAC)", "Flujo de caja total", "ROI promedio", "LTV (Lifetime Value)"],
+                options_hard: ["Costo de Adquisición de Cliente (CAC)", "Flujo de tesorería operativo neto", "Retorno de inversión bruta publicitaria ROAS", "Lifetime Value (LTV) proyectado"],
                 answer: 0,
                 unit: "Conceptos Avanzados de Crecimiento"
             },
             {
-                q: "¿Qué técnica busca mejorar de manera orgánica (gratuita) la visibilidad y ranking de una web en buscadores como Google?",
-                options: ["Publicidad de Pago (SEM)", "SEO (Search Engine Optimization)", "Dropshipping local", "Afiliación de marcas"],
+                q_easy: "¿Qué técnica busca mejorar de manera orgánica (gratuita) la visibilidad y ranking de una web en buscadores como Google?",
+                q_hard: "Para maximizar la visibilidad indexada de un dominio de comercio electrónico en buscadores mediante la optimización de código semántico y relevancia de contenido sin incurrir en costos de pauta directa, ¿qué disciplina se debe implementar?",
+                options_easy: ["Publicidad de Pago (SEM)", "SEO (Search Engine Optimization)", "Dropshipping local", "Afiliación de marcas"],
+                options_hard: ["Campañas pagadas de adquisición por palabras clave (SEM)", "Optimización orgánica para motores de búsqueda (SEO)", "Redireccionamiento logístico directo dropshipping", "Red de referidos y afiliación mercantil"],
                 answer: 1,
                 unit: "Conceptos Avanzados de Crecimiento"
             },
             {
-                q: "¿Qué component del ecommerce abarca el despacho, almacenamiento y entrega segura al cliente final (ej. Servientrega en Ecuador)?",
-                options: ["Proceso transaccional", "Estructura de catálogo", "Logística y envío", "Certificación de seguridad"],
+                q_easy: "¿Qué componente del e-commerce abarca el despacho, almacenamiento y entrega segura al cliente final?",
+                q_hard: "Dentro de la arquitectura de distribución omnicanal, ¿qué subsistema de la cadena de suministro se encarga de la milla de entrega física, control de almacenamiento y procesamiento seguro de despachos?",
+                options_easy: ["Proceso transaccional", "Estructura de catálogo", "Logística y envío", "Certificación de seguridad"],
+                options_hard: ["El motor de validación transaccional", "El gestor de contenidos de catálogo", "El subsistema logístico de última milla (ej. Laar, Servientrega)", "El protocolo de encriptación transaccional"],
                 answer: 2,
                 unit: "Componentes Clave de una Tienda en Línea"
             },
             {
-                q: "¿En qué consiste el modelo logístico denominado 'Dropshipping'?",
-                options: [
+                q_easy: "¿En qué consiste el modelo logístico denominado 'Dropshipping'?",
+                q_hard: "Desde la perspectiva de la gestión de activos fijos, ¿qué caracteriza estructuralmente al modelo logístico y comercial de Dropshipping?",
+                options_easy: [
                     "Enviar mercadería a través de drones de carga masiva.",
                     "La tienda online no almacena stock; el proveedor mayorista despacha directamente los pedidos del cliente final.",
                     "Vender exclusivamente licencias de software comercial.",
                     "Adquirir productos únicamente de segunda mano."
                 ],
+                options_hard: [
+                    "La distribución aérea desatendida mediante drones autónomos comerciales.",
+                    "La intermediación de ventas donde el comerciante carece de inventario propio y delega el almacenaje, picking y despacho final al fabricante.",
+                    "La venta de licencias de software SaaS y de infraestructura en la nube.",
+                    "El acopio de productos obsoletos para su reacondicionamiento y reventa."
+                ],
                 answer: 1,
                 unit: "Componentes Clave de una Tienda en Línea"
             },
             {
-                q: "Promocionar productos ajenos mediante un enlace de seguimiento personalizado para recibir una comisión por cada conversión es:",
-                options: ["Modelo C2B", "Suscripción escalable", "Marketing de Afiliados", "Estrategia de SEO local"],
+                q_easy: "Promocionar productos ajenos mediante un enlace de seguimiento personalizado para recibir una comisión por cada conversión es:",
+                q_hard: "Cuando un canal web monetiza su tráfico redirigiendo intenciones de compra hacia terceros mediante hipervínculos con parámetros UTM de tracking a cambio de una comisión por venta liquidada, aplica:",
+                options_easy: ["Modelo C2B", "Suscripción escalable", "Marketing de Afiliados", "Estrategia de SEO local"],
+                options_hard: ["Modelo publicitario ascendente C2B", "Modelo de suscripción SaaS escalable", "Ecosistema de monetización por Marketing de Afiliados", "Esquema orgánico de posicionamiento SEO local"],
                 answer: 2,
                 unit: "Modelos de Comercio Electrónico"
             },
             {
-                q: "La métrica conocida como 'Tasa de Conversión' en una tienda online representa el porcentaje de:",
-                options: [
+                q_easy: "La métrica conocida como 'Tasa de Conversión' en una tienda online representa el porcentaje de:",
+                q_hard: "¿Cuál es el indicador analítico que mide la efectividad de un embudo de ventas digital al comparar las sesiones únicas del sitio contra el número total de transacciones completadas con éxito?",
+                options_easy: [
                     "Usuarios que ingresan al sitio y realizan con éxito una acción comercial definida (como comprar).",
                     "Pérdidas monetarias debidas a envíos fallidos.",
                     "Clientes que solicitan reembolsos íntegros.",
                     "Servidores caídos durante horas pico."
                 ],
+                options_hard: [
+                    "El indicador porcentual denominado Tasa de Conversión (CR)",
+                    "El KPI logístico de tasa de rebote y entregas fallidas",
+                    "El porcentaje de devoluciones sobre ventas brutas",
+                    "La métrica de latencia y caída de servidores por tráfico de red"
+                ],
                 answer: 0,
                 unit: "Conceptos Avanzados de Crecimiento"
             },
             {
-                q: "¿Qué ventaja estratégica proporciona poseer una alta velocidad de lanzamiento comercial?",
-                options: [
+                q_easy: "¿Qué ventaja estratégica proporciona poseer una alta velocidad de lanzamiento comercial?",
+                q_hard: "En términos de posicionamiento en mercados competitivos de tecnología, ¿por qué la velocidad de lanzamiento comercial (Time-to-Market) representa un factor estratégico de diferenciación?",
+                options_easy: [
                     "Evitar ganar visibilidad rápida.",
                     "Testear el mercado, capturar feedback de forma directa y adelantarse de manera operativa a la competencia tradicional.",
                     "Reducir la tasa de conversión en conversiones móviles.",
                     "Garantizar que no existan errores en ningún sistema tecnológico."
                 ],
+                options_hard: [
+                    "La mitigación de visibilidad ante la competencia indirecta del sector.",
+                    "La capacidad de iterar el producto con usuarios reales, capturar feedback táctico de mercado y consolidar la ventaja del primer jugador.",
+                    "La optimización técnica de la tasa de conversión móvil en navegadores.",
+                    "La erradicación de fallas en producción mediante procesos tradicionales lentos."
+                ],
                 answer: 1,
-                unit: "Fundamentos y Definición de Negocio Digital"
+                unit: "Fundamentos de Negocio Digital"
             },
             {
-                q: "La plataforma de streaming Netflix basa su estructura principal de monetización bajo el modelo de:",
-                options: ["Donaciones voluntarias directas", "Suscripción periódica recurrente", "Modelo C2C directo", "Publicidad exterior física"],
+                q_easy: "La plataforma de streaming Netflix basa su estructura principal de monetización bajo el modelo de:",
+                q_hard: "¿Bajo qué tipología de monetización recurrente opera un e-commerce que ofrece provisión de contenido o productos físicos a cambio de un cobro periódico domiciliado?",
+                options_easy: ["Donaciones voluntarias directas", "Suscripción periódica recurrente", "Modelo C2C directo", "Publicidad exterior física"],
+                options_hard: ["Modelo de microdonaciones voluntarias y crowdfunding", "Modelo comercial de suscripción periódica recurrente", "Esquema transaccional peer-to-peer C2C", "Soporte publicitario exterior georreferenciado"],
                 answer: 1,
                 unit: "Modelos de Comercio Electrónico"
             },
             {
-                q: "¿Por qué el componente de 'Proceso de Pago' es una fase sumamente crítica del embudo en el ecommerce?",
-                options: [
+                q_easy: "¿Por qué el componente de 'Proceso de Pago' es una fase sumamente crítica del embudo en el e-commerce?",
+                q_hard: "Desde la perspectiva de la optimización del embudo de conversión (CRO), ¿por qué la pasarela y proceso de pago (Checkout) es el componente con mayor índice de vulnerabilidad de abandono?",
+                options_easy: [
                     "Porque define los colores de interfaz del sitio.",
                     "Valida, autoriza y captura de manera segura el capital financiero de la transacción reduciendo fricción de compra.",
                     "Sustituye completamente la necesidad de almacenamiento logístico.",
                     "Es el encargado de optimizar el SEO del sitio web."
+                ],
+                options_hard: [
+                    "Porque determina la paleta cromática semántica y de accesibilidad del sitio web.",
+                    "Porque representa el punto final de cobro financiero y requiere la máxima reducción de fricción y garantía técnica de seguridad de datos.",
+                    "Porque su correcta integración sustituye la cadena de suministro e inventarios físicos.",
+                    "Porque es el módulo que ejecuta los motores de indexación SEO del sitio."
                 ],
                 answer: 1,
                 unit: "Componentes Clave de una Tienda en Línea"
@@ -1125,32 +1355,156 @@
         let currentQuestionIndex = 0;
         let selectedAnswers = [];
         let incorrectQuestions = [];
+        
+        let shuffledQuestionsOrder = [];
+        let unansweredQueue = []; 
+        let isRephrasingPhase = false;
+        let rephrasingIndex = 0;
+        
+        let testStartTime = null;
+        let testEndTime = null;
+        
+        let clockTimerInterval = null;
+        let questionTimerInterval = null;
+        let questionSecondsRemaining = 30;
+        let lastActiveQIndex = null;
 
+        // Mezclador Fisher-Yates para asegurar aleatoriedad en cada intento
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // --- CONTROLADORES DE TIEMPOS SÍNCRONOS ---
+        function startClockTimers() {
+            testStartTime = new Date();
+            document.getElementById('test-start-clock').textContent = testStartTime.toLocaleTimeString();
+            
+            clearInterval(clockTimerInterval);
+            clockTimerInterval = setInterval(() => {
+                document.getElementById('test-current-clock').textContent = new Date().toLocaleTimeString();
+            }, 1000);
+        }
+
+        function stopClockTimers() {
+            clearInterval(clockTimerInterval);
+            clearInterval(questionTimerInterval);
+            testEndTime = new Date();
+        }
+
+        function startQuestionTimer() {
+            clearInterval(questionTimerInterval);
+            questionSecondsRemaining = 30;
+            updateTimerDisplay();
+
+            questionTimerInterval = setInterval(() => {
+                questionSecondsRemaining--;
+                updateTimerDisplay();
+
+                if (questionSecondsRemaining <= 0) {
+                    clearInterval(questionTimerInterval);
+                    handleQuestionTimeout();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const display = document.getElementById('question-countdown');
+            if (display) {
+                display.textContent = questionSecondsRemaining + 's';
+                if (questionSecondsRemaining <= 10) {
+                    display.className = "font-black text-sm bg-rose-600 text-white px-3 py-1 rounded-lg animate-pulse border border-rose-500 shadow-md shadow-rose-600/20";
+                } else {
+                    display.className = "font-black text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-lg border border-rose-200";
+                }
+            }
+        }
+
+        function handleQuestionTimeout() {
+            const currentQIdx = isRephrasingPhase ? unansweredQueue[rephrasingIndex] : shuffledQuestionsOrder[currentQuestionIndex];
+            selectedAnswers[currentQIdx] = null; // No respondida
+            
+            if (!isRephrasingPhase) {
+                unansweredQueue.push(currentQIdx); // Se almacena para la fase de replanteamiento
+            }
+            
+            showCustomFeedback("Tiempo expirado en reactivo. Se registrará para el replanteamiento al final del test.");
+            nextQuestion();
+        }
+
+        // --- SISTEMA DE EVALUACIÓN ADAPTATIVA ---
         function initTest() {
             currentQuestionIndex = 0;
-            selectedAnswers = new Array(20).fill(null);
+            selectedAnswers = new Array(quizQuestions.length).fill(null);
             incorrectQuestions = [];
+            unansweredQueue = [];
+            isRephrasingPhase = false;
+            rephrasingIndex = 0;
+            lastActiveQIndex = null;
+
+            document.getElementById('rephrasing-banner').classList.add('hidden');
+            
+            // Establecer dificultad de base según el número de intentos previos
+            const diffBadge = document.getElementById('test-difficulty-badge');
+            if (examAttempts === 0) {
+                diffBadge.textContent = "Intento #1 · Nivel Estándar";
+                diffBadge.className = "text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full uppercase tracking-wider";
+            } else {
+                diffBadge.textContent = `Intento #${examAttempts + 1} · Nivel Avanzado`;
+                diffBadge.className = "text-xs bg-rose-100 text-rose-800 font-bold px-3 py-1 rounded-full uppercase tracking-wider";
+            }
+
+            // Generar orden aleatorio del test en este intento específico
+            shuffledQuestionsOrder = [];
+            for (let i = 0; i < quizQuestions.length; i++) {
+                shuffledQuestionsOrder.push(i);
+            }
+            shuffleArray(shuffledQuestionsOrder);
+
+            startClockTimers();
             renderQuestion();
         }
 
         function renderQuestion() {
-            const q = quizQuestions[currentQuestionIndex];
-            document.getElementById('q-current').textContent = currentQuestionIndex + 1;
-            document.getElementById('question-text').textContent = q.q;
-            
-            const progress = ((currentQuestionIndex) / 20) * 100;
-            document.getElementById('test-progress').style.width = progress + '%';
+            let activeQIndex;
+            let forceHard = false;
+
+            if (isRephrasingPhase) {
+                activeQIndex = unansweredQueue[rephrasingIndex];
+                forceHard = true; // Las preguntas replanteadas siempre se cargan bajo nivel de alta complejidad
+                
+                document.getElementById('question-progress-label').innerHTML = `Replanteamiento · R-${rephrasingIndex + 1} / ${unansweredQueue.length}`;
+                const progress = (rephrasingIndex / unansweredQueue.length) * 100;
+                document.getElementById('test-progress').style.width = progress + '%';
+                document.getElementById('test-progress').className = "h-full bg-amber-500 transition-all duration-300";
+            } else {
+                activeQIndex = shuffledQuestionsOrder[currentQuestionIndex];
+                forceHard = examAttempts > 0; // Si es intento >= 2, todo el test aumenta su complejidad teórica
+                
+                document.getElementById('question-progress-label').innerHTML = `Pregunta ${currentQuestionIndex + 1} / 20`;
+                const progress = (currentQuestionIndex / 20) * 100;
+                document.getElementById('test-progress').style.width = progress + '%';
+                document.getElementById('test-progress').className = "h-full bg-indigo-600 transition-all duration-300";
+            }
+
+            const q = quizQuestions[activeQIndex];
+            const displayQuestionText = forceHard ? q.q_hard : q.q_easy;
+            const displayOptions = forceHard ? q.options_hard : q.options_easy;
+
+            document.getElementById('question-text').textContent = displayQuestionText;
 
             const optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
 
-            q.options.forEach((opt, index) => {
-                const isSelected = selectedAnswers[currentQuestionIndex] === index;
+            displayOptions.forEach((opt, index) => {
+                const isSelected = selectedAnswers[activeQIndex] === index;
                 const btn = document.createElement('button');
                 btn.className = `w-full text-left p-4 rounded-2xl border-2 transition-all duration-200 flex items-center ${isSelected ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-slate-100 hover:border-indigo-300 hover:bg-slate-50 text-slate-700'}`;
                 
                 const letter = String.fromCharCode(65 + index);
-                
                 btn.innerHTML = `
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold mr-4 ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-600'}">
                         ${letter}
@@ -1159,25 +1513,38 @@
                 `;
                 
                 btn.onclick = () => {
-                    selectedAnswers[currentQuestionIndex] = index;
-                    renderQuestion();
+                    selectedAnswers[activeQIndex] = index;
+                    renderQuestion(); // Re-renderiza para reflejar la selección gráfica
                 };
                 optionsContainer.appendChild(btn);
             });
 
+            // REQUERIMIENTO: El conteo del tiempo por pregunta no debe reiniciarse al seleccionar uno u otro literal
+            if (lastActiveQIndex !== activeQIndex) {
+                lastActiveQIndex = activeQIndex;
+                startQuestionTimer(); // Solo iniciamos el temporizador de 30 segundos si ha cambiado físicamente la pregunta activa
+            }
+            
             checkNextButton();
         }
 
         function checkNextButton() {
             const btn = document.getElementById('next-q-btn');
-            if (selectedAnswers[currentQuestionIndex] !== null) {
+            const activeQIndex = isRephrasingPhase ? unansweredQueue[rephrasingIndex] : shuffledQuestionsOrder[currentQuestionIndex];
+            const answerSelected = selectedAnswers[activeQIndex] !== null;
+
+            if (answerSelected) {
                 btn.disabled = false;
-                if (currentQuestionIndex === 19) {
+                if ((isRephrasingPhase && rephrasingIndex === unansweredQueue.length - 1) || (!isRephrasingPhase && currentQuestionIndex === 19 && unansweredQueue.length === 0)) {
                     btn.innerHTML = 'Finalizar Evaluación <i class="fas fa-flag-checkered ml-1"></i>';
                     btn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+                } else if (!isRephrasingPhase && currentQuestionIndex === 19 && unansweredQueue.length > 0) {
+                    btn.innerHTML = 'Ir a Replanteamiento <i class="fas fa-redo-alt ml-1"></i>';
+                    btn.classList.replace('bg-indigo-600', 'bg-amber-600');
                 } else {
                     btn.innerHTML = 'Siguiente Pregunta <i class="fas fa-chevron-right ml-1"></i>';
                     btn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+                    btn.classList.replace('bg-amber-600', 'bg-indigo-600');
                 }
             } else {
                 btn.disabled = true;
@@ -1185,21 +1552,44 @@
         }
 
         function nextQuestion() {
-            if (currentQuestionIndex < 19) {
-                currentQuestionIndex++;
-                renderQuestion();
+            clearInterval(questionTimerInterval);
+
+            if (isRephrasingPhase) {
+                if (rephrasingIndex < unansweredQueue.length - 1) {
+                    rephrasingIndex++;
+                    renderQuestion();
+                } else {
+                    finishTest();
+                }
             } else {
-                finishTest();
+                if (currentQuestionIndex < 19) {
+                    currentQuestionIndex++;
+                    renderQuestion();
+                } else {
+                    // Fin del test regular
+                    if (unansweredQueue.length > 0) {
+                        // Iniciar fase de replanteamiento adaptativa de alta complejidad
+                        isRephrasingPhase = true;
+                        rephrasingIndex = 0;
+                        document.getElementById('rephrasing-banner').classList.remove('hidden');
+                        showCustomFeedback("Iniciando fase de replanteamiento para reactivos sin responder.");
+                        renderQuestion();
+                    } else {
+                        finishTest();
+                    }
+                }
             }
         }
 
         function finishTest() {
+            stopClockTimers();
             examAttempts++;
             document.getElementById('dashboard-attempts').textContent = examAttempts;
 
             let correct = 0;
             incorrectQuestions = [];
 
+            // Calificación sobre los 20 reactivos cargados
             quizQuestions.forEach((q, idx) => {
                 if (selectedAnswers[idx] === q.answer) {
                     correct++;
@@ -1212,21 +1602,25 @@
             
             document.getElementById('result-score').textContent = score + " / 10";
             document.getElementById('result-correct').textContent = correct;
+            
+            document.getElementById('result-date').textContent = testStartTime.toLocaleDateString();
+            document.getElementById('result-time-start').textContent = testStartTime.toLocaleTimeString();
+            document.getElementById('result-time-end').textContent = testEndTime.toLocaleTimeString();
 
             const icon = document.getElementById('result-icon');
             const msg = document.getElementById('result-message');
             
-            if (score >= 7) {
+            if (parseFloat(score) >= 7.0) {
                 icon.innerHTML = '<div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-lg text-3xl"><i class="fas fa-award"></i></div>';
-                msg.innerHTML = "¡Excelente evaluación! Has completado el test académico con solvencia.";
+                msg.innerHTML = "¡Excelente evaluación! Has completado el test académico satisfactoriamente.";
                 msg.className = "text-emerald-600 text-center font-bold mb-4";
             } else {
                 icon.innerHTML = '<div class="w-20 h-20 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto shadow-lg text-3xl"><i class="fas fa-exclamation-triangle"></i></div>';
-                msg.innerHTML = "Tu calificación actual es menor a la requerida (7.0/10). Debes completar el refuerzo de contenidos para volver a intentar.";
+                msg.innerHTML = "Tu calificación final es menor al puntaje mínimo requerido (7.0 / 10.0). Debes realizar un nuevo intento con un nivel más alto de complejidad.";
                 msg.className = "text-rose-600 text-center font-bold mb-4";
             }
 
-            // Desbloqueo del botón de descarga PDF si intentos > 2 o nota >= 8
+            // Habilitación de Reporte Académico PDF según las condiciones (Nota >= 8 o Intentos > 2)
             const pdfBtn = document.getElementById('pdf-download-btn');
             if (examAttempts > 2 || parseFloat(score) >= 8.0) {
                 pdfBtn.disabled = false;
@@ -1236,17 +1630,17 @@
                 pdfBtn.className = "mt-4 w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wider transition";
             }
 
-            // Generación de Refuerzo Pedagógico Personalizado
+            // Generación de la ruta de refuerzo pedagógico
             const pedagogicalList = document.getElementById('pedagogical-list');
             pedagogicalList.innerHTML = '';
             
             if (incorrectQuestions.length === 0) {
-                pedagogicalList.innerHTML = `<li>¡Ninguna debilidad detectada! Tu rendimiento fue perfecto.</li>`;
+                pedagogicalList.innerHTML = `<li>¡Excepcional! Rendimiento perfecto en esta evaluación.</li>`;
             } else {
                 const uniqueUnits = [...new Set(incorrectQuestions.map(q => q.unit))];
                 uniqueUnits.forEach(unit => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<strong>Revisar:</strong> ${unit} - Volver a repasar las secciones teóricas y simulaciones asociadas.`;
+                    li.innerHTML = `<strong>Revisar:</strong> ${unit} (Profundizar conceptos e implementarlos de manera empírica en el simulador).`;
                     pedagogicalList.appendChild(li);
                 });
             }
@@ -1260,69 +1654,86 @@
             
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-
             const currentDate = new Date().toLocaleDateString('es-EC', { year: 'numeric', month: 'long', day: 'numeric' });
 
-            // Cabecera Institucional Premium
+            // Banner Institucional Premium
             doc.setFillColor(30, 41, 59); 
             doc.rect(0, 0, 210, 40, 'F');
             
             doc.setTextColor(255, 255, 255);
             doc.setFont("Helvetica", "bold");
-            doc.setFontSize(20);
-            doc.text("EMPRENDETECH: ACADEMIA DIGITAL", 15, 25);
-            doc.setFontSize(10);
-            doc.text("REPORTE OFICIAL DE RENDIMIENTO ACADÉMICO", 15, 32);
+            doc.setFontSize(18);
+            doc.text("EMPRENDETECH: ACADEMIA DIGITAL", 15, 22);
+            doc.setFontSize(9);
+            doc.text("REPORTE OFICIAL DE RENDIMIENTO Y EVALUACIÓN ACADÉMICA", 15, 30);
 
-            // Bloque de Datos Personales del Estudiante
+            // Bloque de la Cátedra Evaluada
             doc.setTextColor(30, 41, 59);
-            doc.setFontSize(14);
-            doc.text("Información del Estudiante", 15, 60);
-            doc.line(15, 63, 195, 63);
-
-            doc.setFontSize(10);
-            doc.setFont("Helvetica", "normal");
-            doc.text(`Nómina completa: ${currentUser.name}`, 15, 72);
-            doc.text(`Correo Institucional: ${currentUser.email}`, 15, 79);
-            doc.text(`Cédula de Identidad: ${atob(currentUser.cedulaHash)}`, 15, 86);
-            doc.text(`Fecha de Emisión: ${currentDate}`, 15, 93);
-
-            // Métricas de Evaluación
+            doc.setFontSize(11);
             doc.setFont("Helvetica", "bold");
-            doc.text("Métricas de Evaluación", 15, 110);
-            doc.line(15, 113, 195, 113);
+            doc.text("CÁTEDRA EVALUADA", 15, 53);
+            doc.line(15, 55, 195, 55);
+            doc.setFont("Helvetica", "normal");
+            doc.setFontSize(9);
+            doc.text("Docente: Ing. César Godoy Rosero, Mgt.", 15, 62);
+            doc.text("Materia: Informática aplicada", 15, 67);
+
+            // Bloque Estudiante
+            doc.setFontSize(11);
+            doc.setFont("Helvetica", "bold");
+            doc.text("INFORMACIÓN DEL ESTUDIANTE", 15, 80);
+            doc.line(15, 82, 195, 82);
+
+            doc.setFontSize(9);
+            doc.setFont("Helvetica", "normal");
+            doc.text(`Nómina completa: ${currentUser.name}`, 15, 89);
+            doc.text(`Correo Institucional: ${currentUser.email}`, 15, 95);
+            doc.text(`Cédula de Identidad: ${atob(currentUser.cedulaHash)}`, 15, 101);
+            doc.text(`Fecha de Emisión: ${currentDate}`, 15, 107);
+
+            // Métricas de Rendimiento
+            doc.setFont("Helvetica", "bold");
+            doc.setFontSize(11);
+            doc.text("MÉTRICAS DE RENDIMIENTO Y MARCAS DE TIEMPO", 15, 122);
+            doc.line(15, 124, 195, 124);
 
             const score = document.getElementById('result-score').textContent;
             const correct = document.getElementById('result-correct').textContent;
 
             doc.setFont("Helvetica", "normal");
-            doc.text(`Nota obtenida sobre 10: ${score}`, 15, 122);
-            doc.text(`Número de Aciertos totales: ${correct} / 20 preguntas`, 15, 129);
-            doc.text(`Total de intentos de test registrados: ${examAttempts}`, 15, 136);
+            doc.setFontSize(9);
+            doc.text(`Nota oficial sobre 10: ${score}`, 15, 131);
+            doc.text(`Aciertos totales: ${correct} de 20 reactivos aplicados`, 15, 137);
+            doc.text(`Hora de Inicio: ${testStartTime.toLocaleTimeString()}`, 15, 143);
+            doc.text(`Hora de Término: ${testEndTime.toLocaleTimeString()}`, 15, 149);
+            doc.text(`Total de intentos registrados: ${examAttempts}`, 15, 155);
 
-            // Refuerzo Pedagógico Personalizado
+            // Refuerzo Pedagógico
             doc.setFont("Helvetica", "bold");
-            doc.text("Recomendación de Refuerzo Pedagógico", 15, 155);
-            doc.line(15, 158, 195, 158);
+            doc.setFontSize(11);
+            doc.text("RECOMENDACIÓN DE REFUERZO ESTUDIANTIL", 15, 170);
+            doc.line(15, 172, 195, 172);
 
             doc.setFont("Helvetica", "normal");
-            let yPos = 166;
+            doc.setFontSize(9);
+            let yPos = 179;
             if (incorrectQuestions.length === 0) {
-                doc.text("Rendimiento óptimo. No se identificaron debilidades de aprendizaje.", 15, yPos);
+                doc.text("Desempeño óptimo. El estudiante domina perfectamente el bloque temático.", 15, yPos);
             } else {
                 const uniqueUnits = [...new Set(incorrectQuestions.map(q => q.unit))];
                 uniqueUnits.forEach(unit => {
-                    doc.text(`* Se recomienda profundizar en: ${unit}`, 15, yPos);
-                    yPos += 7;
+                    doc.text(`* Profundizar en: ${unit} (Revisar contenidos y laboratorios)`, 15, yPos);
+                    yPos += 6;
                 });
             }
 
-            // Pie de Página
+            // Pie de Página Firmado
             doc.setFillColor(241, 245, 249);
-            doc.rect(15, 250, 180, 20, 'F');
+            doc.rect(15, 245, 180, 25, 'F');
             doc.setFontSize(8);
             doc.setTextColor(100, 116, 139);
-            doc.text("Este es un reporte automático de rendimiento estudiantil.", 20, 258);
+            doc.text("Este reporte se emite con firma digital autorizada por el ecosistema EmprendeTech.", 20, 252);
+            doc.text("Docente de Cátedra: Ing. César Godoy Rosero, Mgt.", 20, 257);
             doc.text("Unidad Educativa Particular Sagrado Corazón. Todos los derechos reservados.", 20, 263);
 
             doc.save(`Reporte_EmprendeTech_${currentUser.name.replace(/\s+/g, '_')}.pdf`);
@@ -1356,6 +1767,8 @@
 
         function logout() {
             currentUser = null;
+            clearInterval(clockTimerInterval);
+            clearInterval(questionTimerInterval);
             document.getElementById('email').value = '';
             document.getElementById('password').value = '';
             document.getElementById('user-profile').classList.add('hidden');
@@ -1393,7 +1806,89 @@
             banner.className = 'fixed top-6 right-6 bg-rose-600 text-white font-bold p-4 rounded-2xl shadow-2xl border border-rose-500 z-50 text-xs md:text-sm fade-in flex items-center gap-2';
             banner.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
             document.body.appendChild(banner);
-            setTimeout(() => banner.remove(), 4000);
+            setTimeout(() => banner.remove(), 4500);
+        }
+
+        // --- SISTEMA DINÁMICO DE SIMULADORES POR MODELO DE NEGOCIO ---
+        function selectSimModel(modelType) {
+            simState.model = modelType;
+            simState.phase = 1;
+            
+            // Configurar selects transaccionales según el modelo
+            const paymentSelect = document.getElementById('sim-payment-select');
+            const logisticsSelect = document.getElementById('sim-logistics-select');
+            
+            if (modelType === 'SocialMedia') {
+                document.getElementById('sim-label-name').textContent = "Nombre de tu Canal / Marca Personal";
+                document.getElementById('sim-label-puv').textContent = "Nicho e Identidad (Ej: Tecnología, Viajes Ecuador, Gaming)";
+                document.getElementById('sim-name-input').placeholder = "Ej. EcuadorAlDescubierto, TechEc";
+                document.getElementById('sim-puv-input').placeholder = "Creamos reviews y guías semanales en formato Reels/TikTok para conectar pymes ecuatorianas.";
+                
+                document.getElementById('sim-label-price').textContent = "Costo de Suscripción Premium / Tarifa por Post ($ USD)";
+                document.getElementById('sim-label-mkt').textContent = "Presupuesto Diario de Producción y Pauta ($ USD)";
+                document.getElementById('sim-price-range').min = "5";
+                document.getElementById('sim-price-range').max = "500";
+                document.getElementById('sim-price-range').value = "25";
+                document.getElementById('sim-price-val').textContent = "25";
+                
+                paymentSelect.innerHTML = `
+                    <option value="twitch_subs">Suscripciones recurrentes de fans (Patreon, Twitch Subs)</option>
+                    <option value="brand_deals">Patrocinios de marcas corporativas (Sponsor Deals)</option>
+                    <option value="affiliate_network">Vínculos y códigos de afiliados (Affiliate Networks - PayPhone)</option>
+                    <option value="live_shopping">Ventas Flash en Vivo (Social Commerce - TikTok Shop / Live Shopping)</option>
+                `;
+                
+                logisticsSelect.innerHTML = `
+                    <option value="beacons">Enlace bio unificado (Beacons, Linktree, Koji)</option>
+                    <option value="correo">Boletines informativos de e-mail recurrentes (Substack)</option>
+                    <option value="entregas">Envío físico de merchandising (Courier Servientrega)</option>
+                `;
+                
+                document.getElementById('sim-metric-title-1').textContent = "Alcance / Reproducciones Totales";
+                document.getElementById('sim-metric-desc-1').innerHTML = `<i class="fas fa-signal text-emerald-400 mr-1"></i> Engagement dinámico de Redes`;
+                document.getElementById('sim-metric-title-2').textContent = "Acciones de Monetización (Clicks / Conversión)";
+                document.getElementById('sim-metric-title-3').textContent = "Ingresos de Canal (ROI Neto)";
+            } else {
+                document.getElementById('sim-label-name').textContent = "Nombre Comercial de la Empresa";
+                document.getElementById('sim-label-puv').textContent = "Propuesta Única de Valor (PUV)";
+                document.getElementById('sim-name-input').placeholder = "Ej. EcuaCafé Express, EsmeraldasTech";
+                document.getElementById('sim-puv-input').placeholder = "¿Qué te diferencia y qué ofreces al mercado ecuatoriano?";
+                
+                document.getElementById('sim-label-price').textContent = "Precio de Venta Unitario ($ USD)";
+                document.getElementById('sim-label-mkt').textContent = "Presupuesto Diario de Marketing ($ USD)";
+                document.getElementById('sim-price-range').min = "5";
+                document.getElementById('sim-price-range').max = "300";
+                document.getElementById('sim-price-range').value = "45";
+                document.getElementById('sim-price-val').textContent = "45";
+                
+                paymentSelect.innerHTML = `
+                    <option value="kushki">Kushki Pay (Altos Volúmenes de Venta B2B)</option>
+                    <option value="payphone">Payphone (Facilidad de uso con celular y app)</option>
+                    <option value="transferencia">Transferencia Bancaria Directa (Bajo Costo pero Manual)</option>
+                `;
+                
+                logisticsSelect.innerHTML = `
+                    <option value="servientrega">Servientrega (Cobertura Nacional Integral)</option>
+                    <option value="laar">LAAR Courier (Especialista en Ecommerce y Cobros Contra Entrega)</option>
+                    <option value="propio">Mensajería Propia (Solo cobertura local de cercanía)</option>
+                `;
+                
+                document.getElementById('sim-metric-title-1').textContent = "Tráfico de Usuarios Únicos";
+                document.getElementById('sim-metric-desc-1').innerHTML = `<i class="fas fa-spinner fa-spin text-indigo-400 mr-1"></i> Leyendo Campañas Digitales`;
+                document.getElementById('sim-metric-title-2').textContent = "Ventas Exitosas";
+                document.getElementById('sim-metric-title-3').textContent = "Rentabilidad Bruta (ROI)";
+            }
+
+            document.getElementById('sim-step-model').classList.add('hidden');
+            document.getElementById('sim-step-builder').classList.remove('hidden');
+            document.getElementById('sim-phase-1-content').classList.remove('hidden');
+            document.getElementById('sim-phase-2-content').classList.add('hidden');
+            document.getElementById('sim-phase-3-content').classList.add('hidden');
+            document.getElementById('sim-running-title').textContent = `Creando Startup (${modelType === 'SocialMedia' ? 'Monetización en Redes' : modelType})`;
+            document.getElementById('sim-running-subtitle').textContent = "Etapa 1: Identidad y Misión";
+            document.getElementById('sim-phase-badge').textContent = "Etapa 1/3";
+            document.getElementById('sim-prev-btn').classList.add('hidden');
+            document.getElementById('sim-next-btn').textContent = "Siguiente";
         }
 
     </script>
