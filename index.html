@@ -507,7 +507,7 @@
                         </div>
                         <h5 class="text-sm font-bold text-slate-700 uppercase tracking-wide"><i class="fas fa-bolt mr-2 text-amber-500"></i> Decisión Crítica</h5>
                         
-                        <p class="text-sm font-semibold text-slate-800 mb-4">¿Cómo resolverás esta crisis tecnológica inmediata?</p>
+                        <p class="text-sm font-semibold text-slate-800 mb-4">¿Cómo resolverará esta crisis tecnológica inmediata?</p>
                         <div class="space-y-3">
                             <label class="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:bg-slate-50 transition">
                                 <input type="radio" name="sim-crisis" value="invertir" class="w-4 h-4 text-indigo-600" checked>
@@ -829,7 +829,7 @@
             { email: "garciaromero8116@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA5NzM3OQ==", name: "GARCIA ROMERO MELL AINARA" },
             { email: "hurtadonavia8393@sagradocorazon.edu.ec", cedulaHash: "MDgwNDUxMDg1Nw==", name: "HURTADO NAVIA JORMAN JOEL" },
             { email: "jativagonzalez6491@sagradocorazon.edu.ec", cedulaHash: "MDg1MDYwMDU2MA==", name: "JATIVA GONZALEZ JORDAN FRANCISCO" },
-            { email: "leyvasuarez5000@sagradocorazon.edu.ec", cedulaHash: "MDg1MDM4MDU3Nw==", name: "LEYVA SUAREZ THIAGO HUMBERTO" },
+            { email: "leyvasuarez5000@sagradocorazon.edu.ec", cedulaHash: "MDg1MDM8MDU3Nw==", name: "LEYVA SUAREZ THIAGO HUMBERTO" },
             { email: "manzabaloor7009@sagradocorazon.edu.ec", cedulaHash: "MDg1MDU5NDE5Mw==", name: "MANZABA LOOR JEREMY DAVID" },
             { email: "mendezmosquera8083@sagradocorazon.edu.ec", cedulaHash: "MDgwMjMyNjY1Mg==", name: "MENDEZ MOSQUERA DAPHANY" },
             { email: "montanocifuente8155@sagradocorazon.edu.ec", cedulaHash: "MDg1MDEzNjE3NQ==", name: "MONTAÑO CIFUENTE JEAN CARLOS" },
@@ -847,7 +847,7 @@
             { email: "pallolujano6633@sagradocorazon.edu.ec", cedulaHash: "MDgwNDgyMzE2OQ==", name: "PALLO LUJANO IKER SAMIR" },
 
             // --- ESTUDIANTES PARALELO 2D ---
-            { email: "angulochere8130@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA1NDkyNQ==", name: "ANGULO CHERE NIGSON EXTIGSON" },
+            { email: "angulochere8130@sagradocorazon.edu.ec", cedulaHash: "MDg1MDA5NDkyNQ==", name: "ANGULO CHERE NIGSON EXTIGSON" },
             { email: "arboledarosero8115@sagradocorazon.edu.ec", cedulaHash: "MDg1MDU4NTc2MQ==", name: "ARBOLEDA ROSERO CRHISTOPHER DOUGLAS" },
             { email: "arismendigonzalez6545@sagradocorazon.edu.ec", cedulaHash: "MDgwNDQ3OTIwMg==", name: "ARISMENDI GONZALEZ AQUILES AZAEL" },
             { email: "ayorazambrano4287@sagradocorazon.edu.ec", cedulaHash: "MDg1MDU4NzQxMQ==", name: "AYORA ZAMBRANO ENZO LEONARDO" },
@@ -1367,7 +1367,580 @@
             }, 30);
         }
 
-        // --- 6. FLUJO OPERATIVO DE ACCESO Y SESIÓN (CASE INSENSITIVE) ---
+        // --- STREAMING_CHUNK: Declarando banco de 20 preguntas del Test de Nivel... ---
+        // --- 4. EXAMEN FORMAL DE NIVEL: BANCO DEFINITIVO DE 20 PREGUNTAS ---
+        const questionBank = [
+            {
+                q: "¿Qué define informáticamente al modelo transaccional B2B (Business-to-Business)?",
+                options: [
+                    "Venta minorista de stock físico mediante redes sociales directas.",
+                    "Integración de catálogos y órdenes masivas automatizadas exclusivas entre portales corporativos.",
+                    "Sistemas de subasta libre donde los particulares dictan los valores.",
+                    "Campañas de microfinanciación o crowdfunding enfocadas en consumo masivo."
+                ],
+                answer: 1,
+                topic: "Modelos transaccionales B2B y automatización empresarial"
+            },
+            {
+                q: "¿Cuál de los siguientes es el canal primario de monetización indirecta para un creador de contenido?",
+                options: [
+                    "Venta directa de mercancía física personalizada.",
+                    "Marketing de afiliados mediante IDs rastreadores web en links específicos.",
+                    "Cobro de suscripción recurrente en plataformas de micromecenazgo.",
+                    "Contratos de pauta de contenido patrocinado por marcas patrocinadoras."
+                ],
+                answer: 3,
+                topic: "Monetización indirecta en la economía del creador"
+            },
+            {
+                q: "Para evitar fricciones y carritos abandonados en Ecuador, ¿cuál de las siguientes pasarelas de pago ofrece cobro móvil sin obligar al usuario a ingresar datos de tarjeta bancaria?",
+                options: [
+                    "Kushki Pay",
+                    "Payphone",
+                    "Datafast tradicional",
+                    "PayPal"
+                ],
+                answer: 1,
+                topic: "Pasarelas de pago nacionales e integraciones móviles"
+            },
+            {
+                q: "¿Cuál es el principal indicador informático que mide el costo de adquirir un cliente nuevo mediante pautas publicitarias?",
+                options: [
+                    "LTV (Lifetime Value)",
+                    "CAC (Customer Acquisition Cost)",
+                    "ROI (Return on Investment)",
+                    "CR (Conversion Rate)"
+                ],
+                answer: 1,
+                topic: "Métricas de marketing digital y viabilidad financiera"
+            },
+            {
+                q: "¿Qué ventaja principal ofrece el protocolo HTTPS sobre el HTTP común en una tienda en línea?",
+                options: [
+                    "Aumenta la velocidad de carga de las imágenes del catálogo.",
+                    "Implementa cifrado SSL/TLS para salvaguardar la información bancaria del comprador.",
+                    "Automatiza de manera instantánea el despacho de productos físicos.",
+                    "Reduce el cobro de comisiones bancarias por transacción."
+                ],
+                answer: 1,
+                topic: "Protocolos de seguridad digital y encriptación"
+            },
+            {
+                q: "¿Cómo se denomina al modelo de comercio electrónico donde la tienda vende sin poseer stock propio, y el proveedor despacha directamente al cliente?",
+                options: [
+                    "Social Commerce",
+                    "Dropshipping",
+                    "B2C tradicional",
+                    "Membresía Premium"
+                ],
+                answer: 1,
+                topic: "Arquitectura y logística de Dropshipping"
+            },
+            {
+                q: "¿Cuál es la función informática de un píxel de seguimiento (ej. Meta Pixel) en un e-commerce?",
+                options: [
+                    "Comprimir las imágenes del catálogo para agilizar la carga.",
+                    "Monitorear y registrar el comportamiento de navegación de los usuarios para optimizar campañas de retargeting.",
+                    "Procesar de forma segura la clave del comprador en la pasarela.",
+                    "Validar que el stock en base de datos corresponda al físico."
+                ],
+                answer: 1,
+                topic: "Píxeles de seguimiento y recopilación analítica de datos"
+            },
+            {
+                q: "En logística ecuatoriana, ¿qué significa el término de entrega 'COD' (Cash on Delivery)?",
+                options: [
+                    "Código de rastreo digital provisto por Servientrega.",
+                    "Pago contra entrega: el cliente cancela en efectivo al motorizado al recibir el paquete.",
+                    "Descuento automático por volumen de compras.",
+                    "Costo de almacenamiento aduanero de importaciones."
+                ],
+                answer: 1,
+                topic: "Logística y última milla en el mercado local"
+            },
+            {
+                q: "¿Qué componente de una tienda virtual guarda temporalmente la información de los productos seleccionados antes del pago final?",
+                options: [
+                    "Base de datos SQL",
+                    "Carrito de compras (Shopping Cart)",
+                    "Pasarela de autenticación SSL",
+                    "Catálogo dinámico indexado"
+                ],
+                answer: 1,
+                topic: "Componentes del embudo del checkout"
+            },
+            {
+                q: "¿Qué modelo comercial caracteriza a las plataformas colaborativas tipo Uber o Airbnb?",
+                options: [
+                    "B2G (Business to Government)",
+                    "P2P / C2C (Peer to Peer o Consumer to Consumer)",
+                    "B2B Puro",
+                    "Venta Flash Freemium"
+                ],
+                answer: 1,
+                topic: "Economía colaborativa y plataformas C2C"
+            },
+            {
+                q: "¿Cómo calculamos informáticamente la Tasa de Conversión (CR) en una tienda en línea?",
+                options: [
+                    "Dividiendo el total de visitas de usuarios únicos para el número de ventas concretadas.",
+                    "Multiplicando el ticket promedio de compra por la cantidad de carritos abandonados.",
+                    "Dividiendo el número de transacciones exitosas entre las visitas totales, y multiplicando por 100.",
+                    "Restando los costos logísticos operativos del ingreso bruto total."
+                ],
+                answer: 2,
+                topic: "Fórmula de tasa de conversión web"
+            },
+            {
+                q: "¿Qué diferencia principal existe entre una campaña orgánica SEO y una campaña de pauta SEM?",
+                options: [
+                    "El SEO se basa en posicionamiento web gratuito basado en relevancia técnica; el SEM requiere pautar anuncios pagados en motores de búsqueda.",
+                    "El SEM no permite medir el tráfico real de los clientes potenciales.",
+                    "El SEO requiere obligatoriamente una pasarela de pago extranjera.",
+                    "El SEM tarda meses en reflejar resultados en los registros analíticos."
+                ],
+                answer: 0,
+                topic: "Estrategias informáticas SEO vs SEM"
+            },
+            {
+                q: "¿A qué denominamos 'Milla de Oro' o 'Última Milla' en los flujos informáticos del e-commerce?",
+                options: [
+                    "La primera fase de fabricación del producto.",
+                    "El trayecto de transporte aéreo internacional.",
+                    "La etapa final del transporte logístico que entrega el producto directamente en la dirección del comprador.",
+                    "La indexación de catálogos en bases de datos."
+                ],
+                answer: 2,
+                topic: "Gestión de última milla y despacho físico"
+            },
+            {
+                q: "¿Qué ventaja didáctica y de testing de mercado ofrece el Producto Mínimo Viable (MVP)?",
+                options: [
+                    "Asegura la venta total de un inventario sin necesidad de publicidad.",
+                    "Permite validar empíricamente la aceptación de una propuesta de valor con recursos mínimos y clientes reales.",
+                    "Sustituye de por vida a los servidores de la pasarela de pagos.",
+                    "Elimina los cobros tributarios locales de facturación."
+                ],
+                answer: 1,
+                topic: "Metodologías ágiles y Producto Mínimo Viable"
+            },
+            {
+                q: "Un ataque informático enfocado en suplantar la web de una tienda online o banco para robar credenciales se denomina:",
+                options: [
+                    "DDoS (Denegación de servicio)",
+                    "Phishing",
+                    "Ransomware de bases de datos",
+                    "Inyección de código SQL"
+                ],
+                answer: 1,
+                topic: "Ciberseguridad aplicada al e-commerce"
+            },
+            {
+                q: "¿Qué métrica comercial mide el retorno financiero neto derivado de una inversión publicitaria digital?",
+                options: [
+                    "LTV (Lifetime Value)",
+                    "ROI (Return on Investment)",
+                    "CTR (Click Through Rate)",
+                    "CAC"
+                ],
+                answer: 1,
+                topic: "Cálculo de Rentabilidad y Retorno de Inversión"
+            },
+            {
+                q: "¿Qué pasarela transaccional multinacional exige regulaciones de cumplimiento PCI-DSS estrictas para aceptar cobros directos integrados por API?",
+                options: [
+                    "Transferencia directa bancaria",
+                    "Kushki Pay",
+                    "Depósitos por ventanilla local",
+                    "Pago contra entrega físico"
+                ],
+                answer: 1,
+                topic: "Seguridad y cumplimiento de normativas de pagos por tarjeta"
+            },
+            {
+                q: "¿En qué consiste la técnica informática de 'Retargeting' / 'Remarketing'?",
+                options: [
+                    "Cambiar los nombres y logos de la startup para atraer otra audiencia.",
+                    "Impactar mediante pautas personalizadas a usuarios que ya interactuaron o visitaron el sitio web previamente.",
+                    "Subir el precio de los catálogos en días festivos de alta demanda.",
+                    "Cambiar los proveedores logísticos por Courier externos."
+                ],
+                answer: 1,
+                topic: "Estrategias de retargeting publicitario dinámico"
+            },
+            {
+                q: "¿Qué permite asegurar que el stock visible de productos en la tienda virtual coincida exactamente con las existencias reales en bodega?",
+                options: [
+                    "El carrito de compras de sesión.",
+                    "La integración síncrona de base de datos entre el ERP/Inventario y la plataforma web.",
+                    "Las claves SSL/TLS del dominio institucional.",
+                    "La tasa de conversión optimizada por Meta Pixel."
+                ],
+                answer: 1,
+                topic: "Sincronización técnica de bases de datos y control de inventarios"
+            },
+            {
+                q: "¿Cuál de las siguientes leyes rige el comercio electrónico y firmas digitales en el territorio ecuatoriano?",
+                options: [
+                    "Ley Orgánica de Educación Intercultural.",
+                    "Ley de Comercio Electrónico, Firmas Electrónicas y Mensajes de Datos.",
+                    "Ley de Defensa del Consumidor tradicional.",
+                    "Código Orgánico General de Procesos."
+                ],
+                answer: 1,
+                topic: "Marco normativo legal ecuatoriano del e-commerce"
+            }
+        ];
+
+        // --- STREAMING_CHUNK: Inicializando variables de estado del examen... ---
+        // Variables globales del Examen
+        let currentUser = null;
+        let testQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let rephrasingMode = false;
+        let rephrasingQuestions = [];
+        let questionTimer = 30;
+        let testStartTime = "";
+        let testEndTime = "";
+        let clockTimerInterval = null;
+        let questionTimerInterval = null;
+        let attempts = 0;
+
+        // Inicializar el Examen Formal
+        function initTest() {
+            clearInterval(clockTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            // Mezclar preguntas para evitar fraudes académicos
+            testQuestions = [...questionBank].sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            rephrasingMode = false;
+            rephrasingQuestions = [];
+            questionTimer = 30;
+
+            const now = new Date();
+            testStartTime = now.toLocaleTimeString();
+            document.getElementById('test-start-clock').textContent = testStartTime;
+            document.getElementById('test-current-clock').textContent = testStartTime;
+            document.getElementById('rephrasing-banner').classList.add('hidden');
+            document.getElementById('test-difficulty-badge').textContent = "Evaluación Oficial Regulada";
+            document.getElementById('test-difficulty-badge').className = "text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full uppercase tracking-wider";
+
+            // Levantar los timers síncronos
+            clockTimerInterval = setInterval(() => {
+                const current = new Date();
+                document.getElementById('test-current-clock').textContent = current.toLocaleTimeString();
+            }, 1000);
+
+            startQuestionTimer();
+            renderQuestion();
+        }
+
+        // --- STREAMING_CHUNK: Iniciando temporizador de 30 segundos... ---
+        // Temporizador por pregunta
+        function startQuestionTimer() {
+            clearInterval(questionTimerInterval);
+            questionTimer = rephrasingMode ? 20 : 30; // Menos tiempo en fase de replanteamiento para añadir exigencia académica
+            document.getElementById('question-countdown').textContent = questionTimer + "s";
+            document.getElementById('question-countdown').className = "font-black text-sm bg-rose-100 px-2.5 py-0.5 rounded-lg border border-rose-200 text-rose-600 animate-none";
+
+            questionTimerInterval = setInterval(() => {
+                questionTimer--;
+                document.getElementById('question-countdown').textContent = questionTimer + "s";
+
+                if (questionTimer <= 5) {
+                    document.getElementById('question-countdown').className = "font-black text-sm bg-rose-600 px-2.5 py-0.5 rounded-lg border border-rose-700 text-white animate-pulse";
+                }
+
+                if (questionTimer <= 0) {
+                    clearInterval(questionTimerInterval);
+                    // Si se acaba el tiempo, se procesa automáticamente como vacía
+                    recordAnswer(null);
+                }
+            }, 1000);
+        }
+
+        // --- STREAMING_CHUNK: Renderizando la pregunta en pantalla... ---
+        // Renderizar pregunta e inyectar opciones
+        function renderQuestion() {
+            const currentQuestionsList = rephrasingMode ? rephrasingQuestions : testQuestions;
+            const currentQ = currentQuestionsList[currentQuestionIndex];
+
+            // Barra de progreso visual
+            const totalQ = currentQuestionsList.length;
+            const progressPercent = ((currentQuestionIndex / totalQ) * 100);
+            document.getElementById('test-progress').style.width = `${progressPercent}%`;
+            document.getElementById('q-current').textContent = currentQuestionIndex + 1;
+            document.getElementById('question-progress-label').innerHTML = `Pregunta <span id="q-current" class="font-extrabold text-indigo-700">${currentQuestionIndex + 1}</span> / ${totalQ}`;
+
+            // Enunciado
+            document.getElementById('question-text').innerHTML = `
+                <span class="block text-indigo-600 font-bold text-xs uppercase tracking-wider mb-2">Tema: ${currentQ.topic}</span>
+                <span>${currentQ.q}</span>
+            `;
+
+            // Opciones
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            currentQ.options.forEach((opt, idx) => {
+                const button = document.createElement('button');
+                button.className = "w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-600 hover:bg-indigo-50/20 bg-slate-50 text-slate-700 transition flex items-center gap-4 text-xs md:text-sm font-semibold relative";
+                button.innerHTML = `
+                    <span class="w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-600 flex items-center justify-center font-bold shadow-sm transition-colors group-hover:bg-indigo-600">${String.fromCharCode(65 + idx)}</span>
+                    <span class="flex-1">${opt}</span>
+                `;
+                button.onclick = () => selectOption(idx);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('next-q-btn').disabled = true;
+        }
+
+        let selectedOptionIndex = null;
+
+        function selectOption(index) {
+            selectedOptionIndex = index;
+            const optionsContainer = document.getElementById('options-container');
+            const buttons = optionsContainer.getElementsByTagName('button');
+
+            for (let i = 0; i < buttons.length; i++) {
+                if (i === index) {
+                    buttons[i].className = "w-full text-left p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/20 text-indigo-950 transition flex items-center gap-4 text-xs md:text-sm font-semibold relative shadow-sm";
+                    buttons[i].querySelector('span').className = "w-8 h-8 rounded-xl bg-indigo-600 border border-indigo-600 text-white flex items-center justify-center font-bold shadow-sm";
+                } else {
+                    buttons[i].className = "w-full text-left p-4 rounded-2xl border-2 border-slate-100 bg-slate-50 text-slate-400 transition flex items-center gap-4 text-xs md:text-sm font-semibold relative opacity-60";
+                    buttons[i].querySelector('span').className = "w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-300 flex items-center justify-center font-bold shadow-sm";
+                }
+            }
+
+            document.getElementById('next-q-btn').disabled = false;
+        }
+
+        // Registrar respuesta e ir a la siguiente pregunta
+        function nextQuestion() {
+            clearInterval(questionTimerInterval);
+            recordAnswer(selectedOptionIndex);
+        }
+
+        // --- STREAMING_CHUNK: Registrando respuesta y validando aciertos... ---
+        function recordAnswer(ansIdx) {
+            const currentQuestionsList = rephrasingMode ? rephrasingQuestions : testQuestions;
+            const currentQ = currentQuestionsList[currentQuestionIndex];
+
+            // Almacenar respuesta del usuario
+            userAnswers.push({
+                question: currentQ.q,
+                topic: currentQ.topic,
+                selected: ansIdx,
+                correctIndex: currentQ.answer,
+                isCorrect: ansIdx === currentQ.answer
+            });
+
+            if (ansIdx === currentQ.answer) {
+                score++;
+            } else {
+                // Enviar a bolsa de reevaluación si no estábamos ya en replanteamiento
+                if (!rephrasingMode) {
+                    rephrasingQuestions.push(currentQ);
+                }
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < currentQuestionsList.length) {
+                selectedOptionIndex = null;
+                startQuestionTimer();
+                renderQuestion();
+            } else {
+                // Fin de un bloque de preguntas
+                if (!rephrasingMode && rephrasingQuestions.length > 0) {
+                    // Pasar a fase de replanteamiento
+                    rephrasingMode = true;
+                    currentQuestionIndex = 0;
+                    document.getElementById('rephrasing-banner').classList.remove('hidden');
+                    document.getElementById('test-difficulty-badge').textContent = "Fase de Replanteamiento";
+                    document.getElementById('test-difficulty-badge').className = "text-xs bg-amber-500 text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider";
+                    startQuestionTimer();
+                    renderQuestion();
+                } else {
+                    // Fin del examen completo
+                    finishTest();
+                }
+            }
+        }
+
+        // --- STREAMING_CHUNK: Finalizando test y analizando refuerzo pedagógico... ---
+        // Fin del Examen
+        function finishTest() {
+            clearInterval(clockTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            const finalDate = new Date();
+            testEndTime = finalDate.toLocaleTimeString();
+
+            attempts++;
+            document.getElementById('dashboard-attempts').textContent = attempts;
+
+            // Calcular nota formal escalada a 10.00
+            const totalQ = testQuestions.length;
+            const finalGrade = ((score / totalQ) * 10).toFixed(2);
+
+            document.getElementById('result-score').textContent = `${finalGrade} / 10`;
+            document.getElementById('result-correct').textContent = score;
+            document.getElementById('result-date').textContent = finalDate.toLocaleDateString();
+            document.getElementById('result-time-start').textContent = testStartTime;
+            document.getElementById('result-time-end').textContent = testEndTime;
+
+            // Personalización pedagógica y mensajes del profesor
+            const resultIcon = document.getElementById('result-icon');
+            const resultMsg = document.getElementById('result-message');
+            const pedagogicalList = document.getElementById('pedagogical-list');
+            pedagogicalList.innerHTML = '';
+
+            if (parseFloat(finalGrade) >= 8.00) {
+                resultIcon.innerHTML = "🏆";
+                resultMsg.className = "text-emerald-600 font-bold text-center text-sm mb-6";
+                resultMsg.textContent = "¡Sobresaliente! Has demostrado un dominio excelente de las metodologías ágiles, logística, monetización y arquitectura del e-commerce. Cumples con los estándares de acreditación escolar.";
+                document.getElementById('pdf-download-btn').disabled = false;
+            } else if (parseFloat(finalGrade) >= 7.00) {
+                resultIcon.innerHTML = "👍";
+                resultMsg.className = "text-indigo-600 font-bold text-center text-sm mb-6";
+                resultMsg.textContent = "Aprobado. Tienes un dominio aceptable sobre los esquemas de negocio digital, pero te sugerimos revisar los temas erróneos para afianzar conceptos clave.";
+                document.getElementById('pdf-download-btn').disabled = false;
+            } else {
+                resultIcon.innerHTML = "📚";
+                resultMsg.className = "text-rose-600 font-bold text-center text-sm mb-6";
+                resultMsg.textContent = "Bajo el nivel de aprendizaje requerido. Debes realizar las lecturas del Libro 2 de Emprendimiento Digital e ingresar nuevamente para elevar tu rendimiento.";
+                if (attempts >= 2) {
+                    document.getElementById('pdf-download-btn').disabled = false;
+                } else {
+                    document.getElementById('pdf-download-btn').disabled = true;
+                }
+            }
+
+            // Filtrar y crear la lista de sugerencias basadas en errores
+            const errors = userAnswers.filter(ans => !ans.isCorrect);
+            if (errors.length > 0) {
+                // Crear set único de temas errados
+                const uniqueTopics = [...new Set(errors.map(e => e.topic))];
+                uniqueTopics.forEach(topic => {
+                    const li = document.createElement('li');
+                    li.textContent = `Fortalecer: ${topic}`;
+                    pedagogicalList.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = "Sin errores reportados. Dominio conceptual absoluto de la materia de Informática Aplicada.";
+                pedagogicalList.appendChild(li);
+            }
+
+            navigate('results');
+        }
+
+        // --- STREAMING_CHUNK: Implementando la generación del PDF con jsPDF... ---
+        // Generar Reporte Académico en PDF Oficial Firmado
+        async function generateAcademicPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const studentName = currentUser ? currentUser.name : "ESTUDIANTE NO AUTENTICADO";
+            const email = currentUser ? currentUser.email : "N/A";
+            const grade = ((score / testQuestions.length) * 10).toFixed(2);
+
+            // Cabecera Institucional Premium
+            doc.setFillColor(30, 27, 75); // Indigo 950
+            doc.rect(0, 0, 210, 38, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('Helvetica', 'bold');
+            doc.setFontSize(18);
+            doc.text("UNIDAD EDUCATIVA PARTICULAR SAGRADO CORAZÓN", 15, 16);
+            doc.setFontSize(10);
+            doc.setFont('Helvetica', 'normal');
+            doc.text("Ecosistema de Certificación de Competencias Digitales - EmprendeTech", 15, 24);
+            doc.text("Cátedra de Informática Aplicada · Bachillerato General Unificado", 15, 30);
+
+            // Datos del Estudiante
+            doc.setTextColor(51, 65, 85);
+            doc.setFont('Helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.text("REPORTE OFICIAL DE RENDIMIENTO ACADÉMICO", 15, 52);
+            doc.line(15, 54, 195, 54);
+
+            doc.setFont('Helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.text(`Estudiante: ${studentName}`, 15, 62);
+            doc.text(`Correo: ${email}`, 15, 68);
+            doc.text(`Fecha de Emisión: ${new Date().toLocaleDateString()} a las ${new Date().toLocaleTimeString()}`, 15, 74);
+            doc.text(`Hora de Inicio Examen: ${testStartTime}  ·  Hora de Término: ${testEndTime}`, 15, 80);
+
+            // Cuadro del Score
+            doc.setFillColor(248, 250, 252);
+            doc.rect(15, 88, 180, 25, 'F');
+            doc.setDrawColor(226, 232, 240);
+            doc.rect(15, 88, 180, 25);
+
+            doc.setTextColor(79, 70, 229);
+            doc.setFont('Helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.text(`Calificación Final: ${grade} / 10.00`, 20, 97);
+            doc.setFontSize(10);
+            doc.setTextColor(100, 116, 139);
+            doc.text(`Aciertos netos: ${score} de 20 preguntas (Fase de replanteamiento integrada).`, 20, 104);
+
+            // Refuerzo pedagógico
+            doc.setTextColor(15, 23, 42);
+            doc.setFont('Helvetica', 'bold');
+            doc.text("INFORME DE DETECCIÓN DE DEBILIDADES PEDAGÓGICAS:", 15, 124);
+            doc.line(15, 126, 195, 126);
+
+            doc.setFont('Helvetica', 'normal');
+            let y = 134;
+            const errors = userAnswers.filter(ans => !ans.isCorrect);
+            if (errors.length > 0) {
+                const uniqueTopics = [...new Set(errors.map(e => e.topic))];
+                uniqueTopics.forEach((topic, idx) => {
+                    if (y < 250) {
+                        doc.text(`- Reestudiar: ${topic}`, 18, y);
+                        y += 7;
+                    }
+                });
+            } else {
+                doc.text("Felicidades. El estudiante no presenta vacíos cognitivos de la unidad homologada de informática.", 18, y);
+            }
+
+            // Pie de firmas oficiales
+            doc.line(15, 245, 85, 245);
+            doc.line(125, 245, 195, 245);
+
+            doc.setFontSize(9);
+            doc.setFont('Helvetica', 'bold');
+            doc.text("Ing. César Godoy Rosero, Mgt.", 15, 251);
+            doc.setFont('Helvetica', 'normal');
+            doc.text("Docente de Informática Aplicada", 15, 256);
+            doc.text("Firma Autorizada", 15, 261);
+
+            doc.setFont('Helvetica', 'bold');
+            doc.text(studentName, 125, 251);
+            doc.setFont('Helvetica', 'normal');
+            doc.text("Estudiante Matriculado", 125, 256);
+            doc.text("Cédula de Identidad Firmante", 125, 261);
+
+            // Sello institucional
+            doc.setDrawColor(79, 70, 229);
+            doc.rect(85, 265, 40, 15);
+            doc.setFontSize(7);
+            doc.text("EMPRENDETECH ECOSYSTEM", 87, 271);
+            doc.text("EVALUACIÓN CERTIFICADA", 87, 276);
+
+            doc.save(`Certificado_EmprendeTech_${studentName.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        // --- 5. FLUJO OPERATIVO DE ACCESO Y SESIÓN (CASE INSENSITIVE) ---
         function handleLogin(e) {
             e.preventDefault();
             const emailInput = document.getElementById('email').value.trim().toLowerCase();
