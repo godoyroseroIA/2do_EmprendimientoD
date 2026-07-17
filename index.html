@@ -643,6 +643,7 @@
 
     </main>
 
+    <script src="datos/students-2do.js?v=20260716-2c-fix"></script>
     <script>
         // --- STREAMING_CHUNK: Configurando mecanismos de seguridad interactivos... ---
         document.addEventListener('contextmenu', e => e.preventDefault(), true);
@@ -656,12 +657,16 @@
         // --- STREAMING_CHUNK: Declarando el listado institucional de estudiantes... ---
         let currentUser = null;
         let examAttempts = 0;
-        const students = [
+        const demoStudents = [
             { email: "estudiante@prueba.com", cedulaHash: "MDgwMTQ3MTI1NQ==", name: "ESTUDIANTE DE PRUEBA" },
             { email: "alarconmosquera8129@sagradocorazon.edu.ec", cedulaHash: "MDg1MDcyOTgxNQ==", name: "ALARCON MOSQUERA EMILY" },
             { email: "alcivarmina3519@sagradocorazon.edu.ec", cedulaHash: "MDgwNDM5MzMzOA==", name: "ALCIVAR MINA MIGUEL" },
             { email: "test@test.com", cedulaHash: "MTIzNDU=", name: "ESTUDIANTE DEMO" }
         ];
+        const institutionalStudents = Array.isArray(window.INSTITUTIONAL_STUDENTS_2DO) ? window.INSTITUTIONAL_STUDENTS_2DO : [];
+        const students = [...demoStudents, ...institutionalStudents].filter((student, index, list) => 
+            index === list.findIndex(item => item.email.toLowerCase() === student.email.toLowerCase())
+        );
 
         // --- STREAMING_CHUNK: Armando el banco de 20 preguntas (Informática + Libro 2)... ---
         const quizQuestions = [
